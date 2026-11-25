@@ -82,6 +82,7 @@ button:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
 #ask{font-size:clamp(1.4rem,5.4vw,2.1rem);font-weight:700;margin:0;text-wrap:balance}
 #again{align-self:flex-start;background:transparent;border:2px solid var(--line);border-radius:999px;padding:5px 14px;font-weight:700;color:var(--mute);min-height:40px}
 #replies{display:flex;flex-direction:column;gap:8px}
+@media (min-width:700px){#replies.four{display:grid;grid-template-columns:1fr 1fr}}   /* the last item has four choices: two by two */
 .reply{display:flex;gap:8px;min-width:0}
 .reply .hear{flex:none;width:54px;border-radius:16px;background:var(--line);font-size:1.3rem}
 .reply .say{flex:1;min-width:0;text-align:left;background:var(--ink);color:var(--marble);border-radius:16px;padding:10px 16px;min-height:56px;
@@ -326,6 +327,9 @@ const WALKER_ROWS = [1, 3, 28, 60, 61, 63];
 const NOAH_SPEED = 8, EYE = 1.25, NOAH_R = 0.9;
 const BABA_START = 4.4, BABA_STEP = 0.5, BABA_TOP = 7.4, BABA_MIN = 3.8, BABA_MERCY = 0.4;
 const TALK_RANGE = 4.0, CATCH_RANGE = 1.7;
+// The last of the seven items is the hard one: more questions, more choices, and Baba barely slows down while Noah talks.
+// (A normal talk is 3 questions with 2 or 3 choices, and Baba at half speed.)
+const FINAL_KINDS = ['greet', 'mid', 'mid', 'mid', 'bye'], FINAL_CHOICES = 4, FINAL_TALK_SPEED = 0.8;
 
 /* =====================================================================
    Small helpers
@@ -903,7 +907,7 @@ const look = { id: null, lx: 0, ly: 0 };
 function bindInput() {
   window.addEventListener('keydown', e => {
     keys[e.code] = true;
-    if (S.conv && /^Digit[1-3]$/.test(e.code)) { const b = document.querySelectorAll('#replies .say')[+e.code.slice(5) - 1]; if (b && !b.disabled) b.click(); }
+    if (S.conv && /^Digit[1-4]$/.test(e.code)) { const b = document.querySelectorAll('#replies .say')[+e.code.slice(5) - 1]; if (b && !b.disabled) b.click(); }
     if (/^Arrow|Space/.test(e.code)) e.preventDefault();
   });
   window.addEventListener('keyup', e => { keys[e.code] = false; });
@@ -995,7 +999,7 @@ function babaSay(id, force) {
 function moveBaba(dt) {
   B.lineCd -= dt;
   if (B.grace > 0) { B.grace -= dt; B.moving = false; return; }
-  const speed = B.speed * (S.conv ? 0.5 : 1);
+  const speed = B.speed * (!S.conv ? 1 : S.conv.final ? FINAL_TALK_SPEED : 0.5);
   B.planT -= dt; if (B.planT <= 0) { planRoute(); B.planT = 0.25; B.losNow = sight(B, P); }
   const d = Math.hypot(P.x - B.x, P.z - B.z), bc = cellOf(B), pc = cellOf(P);
   let tx = B.x, tz = B.z;
@@ -1097,9 +1101,12 @@ function makeLine(kind, used, nOptions, elder, voice) {
 }
 function openTalk(npc) {
   dropInput();
-  const used = new Set(), n = S.items.size < 2 ? 2 : 3, el = !!npc.k.elder, vo = npc.k.voice;
-  S.conv = { npc, lines: [makeLine('greet', used, n, el, vo), makeLine('mid', used, n, el, vo), makeLine('bye', used, n, el, vo)], i: 0, wrong: 0, busy: false, token: Math.random() };
-  $('talk').hidden = false; $('who').textContent = npc.k.name + ' · ' + npc.k.item.emoji + ' ' + npc.k.item.tr;
+  const final = S.items.size === KEEPERS.length - 1;                 // six in the bag: this is the last one
+  const used = new Set(), n = final ? FINAL_CHOICES : S.items.size < 2 ? 2 : 3, el = !!npc.k.elder, vo = npc.k.voice;
+  const kinds = final ? FINAL_KINDS : ['greet', 'mid', 'bye'];
+  S.conv = { npc, final, lines: kinds.map(kind => makeLine(kind, used, n, el, vo)), i: 0, wrong: 0, busy: false, token: Math.random() };
+  const dots = $('dots'); dots.textContent = ''; kinds.forEach(() => dots.append(document.createElement('i')));
+  $('talk').hidden = false; $('who').textContent = (final ? '⭐ SON EŞYA · ' : '') + npc.k.name + ' · ' + npc.k.item.emoji + ' ' + npc.k.item.tr;
   showLine();
 }
 function showLine() {
@@ -1107,7 +1114,7 @@ function showLine() {
   $('result').hidden = true; $('line').hidden = false; $('again').hidden = false; $('replies').hidden = false; $('run').hidden = false;
   $('ask').textContent = line.ask;
   [...$('dots').children].forEach((d, i) => { const res = cv.lines[i].result; d.className = res === true ? 'ok' : res === false ? 'no' : i === cv.i ? 'now' : ''; });
-  const box = $('replies'); box.textContent = '';
+  const box = $('replies'); box.textContent = ''; box.classList.toggle('four', line.options.length > 3);
   line.options.forEach((o, i) => {
     const row = document.createElement('div'); row.className = 'reply';
     const hear = document.createElement('button'); hear.className = 'hear'; hear.textContent = '🔊'; hear.id = 'hear' + i; hear.setAttribute('aria-label', 'Dinle: ' + o.text);
@@ -1142,16 +1149,18 @@ async function answer(i) {
   await new Promise(r => setTimeout(r, 350));
   if (!alive()) return;
   cv.i++;
-  if (cv.i < 3) { showLine(); return; }
+  if (cv.i < cv.lines.length) { showLine(); return; }
   [...$('dots').children].forEach((d, k) => { d.className = cv.lines[k].result ? 'ok' : 'no'; });
   $('line').hidden = true; $('again').hidden = true; $('replies').hidden = true; $('result').hidden = false;
   if (cv.wrong === 0) {
     const k = cv.npc.k; S.items.add(k.id); cv.npc.item.visible = false; cv.npc.done.visible = true;
     $('resulttext').textContent = 'Aferin! ' + k.item.emoji + ' ' + k.item.tr; $('retry').hidden = true; $('run').hidden = true;
     renderItems(); chime(true);
-    setTimeout(() => { if (alive()) { closeTalk(); if (S.items.size === KEEPERS.length) openExit(); } }, 1500);
+    const oneLeft = S.items.size === KEEPERS.length - 1;
+    if (oneLeft) npcs.forEach(m => { if (!S.items.has(m.k.id)) m.item.scale.set(2.6, 2.6, 1); });   // the last item floats bigger, so Noah can tell which one it is
+    setTimeout(() => { if (alive()) { closeTalk(); if (S.items.size === KEEPERS.length) openExit(); else if (oneLeft) toast('⭐ Son eşya! Bu zor olacak.'); } }, 1500);
   } else {
-    $('resulttext').textContent = 'Olmadı. Üçü de doğru olmalı!'; $('retry').hidden = false;
+    $('resulttext').textContent = 'Olmadı. ' + (cv.final ? 'Beşi' : 'Üçü') + ' de doğru olmalı!'; $('retry').hidden = false;
   }
 }
 function closeTalk(silent) {
@@ -1182,7 +1191,7 @@ function win() {
 function resetGame() {
   S.items.clear(); S.exitOpen = false; S.doorK = 0; S.conv = null; S.playT = 0; S.saidB3 = false; S.carry = null; S.miss = {}; S.recent = [];
   setDoors(0); exitSign.material.map = exitSignTex.closed; exitSign.material.needsUpdate = true;
-  npcs.forEach(n => { n.item.visible = true; n.done.visible = false; n.armed = true; });
+  npcs.forEach(n => { n.item.visible = true; n.item.scale.set(1.5, 1.5, 1); n.done.visible = false; n.armed = true; });
   P.x = DOME.x; P.z = DOME.z; P.y = 0; P.vy = 0; P.yaw = 0; P.pitch = 0;
   B.speed = BABA_START; B.grace = 5; B.lineCd = 0; placeBaba(false);
   ['banner', 'arrow', 'toast', 'caption', 'talk'].forEach(id => { $(id).hidden = true; });
