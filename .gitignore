@@ -1,0 +1,8 @@
+# Made from the clips in audio/ by tools/pack-audio.ps1. The copy the site serves is docs/audio-pack.js.
+/audio-pack.js
+# Voice auditions, not used by the game.
+/audio/samples/
+# Never commit an API key.
+elevenlabs-key.txt
+*.key
+.env

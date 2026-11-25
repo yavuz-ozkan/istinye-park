@@ -1,0 +1,2459 @@
+{
+  "model": "eleven_v4",
+  "voices": {
+    "teyze": {
+      "id": "xyqF3vGMQlPk3e7yA4DI",
+      "name": "Ahu",
+      "role": "warm auntie, uses the pet names",
+      "old": true
+    },
+    "dede": {
+      "id": "QAABwpMjK3YR9pYW5FDO",
+      "name": "Recep Sağlık",
+      "role": "old man, uses the pet names",
+      "old": true
+    },
+    "mark": {
+      "id": "DUnzBkwtjRWXPr6wRbmL",
+      "name": "Mark",
+      "role": "cartoon male"
+    },
+    "gamze": {
+      "id": "Hr3W7yWIljG9YBJn39oK",
+      "name": "Gamze",
+      "role": "cartoon female"
+    },
+    "reply": {
+      "id": "6GYyziau4Hk8qdg7od5c",
+      "name": "Betül Tuna",
+      "role": "reads Noah's reply choices"
+    },
+    "baba": {
+      "id": "tILIOdKERNNbBHVEXk7I",
+      "name": "Hasan Yasin",
+      "role": "Baba"
+    },
+    "narrator": {
+      "id": "DM4ogDUNaqwcuIIRkVZK",
+      "name": "Fatih Çetinkaya",
+      "role": "storybook narrator"
+    },
+    "pa": {
+      "id": "cbqdgvVi3C6sgxIWpqIh",
+      "name": "Füsun Tuncer",
+      "role": "mall announcement"
+    }
+  },
+  "rows": [
+    {
+      "n": 1,
+      "group": "greetings",
+      "meaning": "Hello",
+      "prompts": [
+        {
+          "text": "Merhaba!",
+          "clips": {
+            "dede": {
+              "text": "Merhaba yavrum!",
+              "file": "q/q01a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Merhaba!",
+              "file": "q/q01a-gamze.mp3"
+            }
+          }
+        },
+        {
+          "text": "Selam!",
+          "clips": {
+            "dede": {
+              "text": "Selam!",
+              "file": "q/q01b-dede.mp3"
+            },
+            "gamze": {
+              "text": "Selam!",
+              "file": "q/q01b-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Merhaba!",
+          "file": "r/r001.mp3"
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "group": "greetings",
+      "meaning": "Good morning",
+      "prompts": [
+        {
+          "text": "Günaydın!",
+          "clips": {
+            "teyze": {
+              "text": "Günaydın canım!",
+              "file": "q/q02a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Günaydın!",
+              "file": "q/q02a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Günaydın!",
+          "file": "r/r002.mp3"
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "group": "greetings",
+      "meaning": "Good evening",
+      "prompts": [
+        {
+          "text": "İyi akşamlar!",
+          "clips": {
+            "dede": {
+              "text": "İyi akşamlar!",
+              "file": "q/q03a-dede.mp3"
+            },
+            "mark": {
+              "text": "İyi akşamlar!",
+              "file": "q/q03a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "İyi akşamlar!",
+          "file": "r/r003.mp3"
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "group": "greetings",
+      "meaning": "Welcome / glad to be here",
+      "prompts": [
+        {
+          "text": "Hoş geldin!",
+          "clips": {
+            "teyze": {
+              "text": "Hoş geldin bir tanem!",
+              "file": "q/q04a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Hoş geldin!",
+              "file": "q/q04a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Hoş bulduk!",
+          "file": "r/r004.mp3"
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "group": "greetings",
+      "meaning": "How are you / fine thanks, and you",
+      "prompts": [
+        {
+          "text": "Nasılsın?",
+          "clips": {
+            "dede": {
+              "text": "Nasılsın yavrum?",
+              "file": "q/q05a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Nasılsın?",
+              "file": "q/q05a-gamze.mp3"
+            }
+          }
+        },
+        {
+          "text": "Naber?",
+          "clips": {
+            "dede": {
+              "text": "Naber?",
+              "file": "q/q05b-dede.mp3"
+            },
+            "gamze": {
+              "text": "Naber?",
+              "file": "q/q05b-gamze.mp3"
+            }
+          }
+        },
+        {
+          "text": "İyi misin?",
+          "clips": {
+            "dede": {
+              "text": "İyi misin canım?",
+              "file": "q/q05c-dede.mp3"
+            },
+            "gamze": {
+              "text": "İyi misin?",
+              "file": "q/q05c-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "İyiyim, teşekkürler. Sen nasılsın?",
+          "file": "r/r005.mp3"
+        },
+        {
+          "text": "İyiyim, sağ ol.",
+          "file": "r/r006.mp3"
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "group": "greetings",
+      "meaning": "What's new / all good",
+      "prompts": [
+        {
+          "text": "Ne var ne yok?",
+          "clips": {
+            "teyze": {
+              "text": "Ne var ne yok?",
+              "file": "q/q06a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Ne var ne yok?",
+              "file": "q/q06a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "İyilik, sağlık.",
+          "file": "r/r007.mp3"
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "group": "about",
+      "meaning": "What's your name",
+      "prompts": [
+        {
+          "text": "Adın ne?",
+          "clips": {
+            "dede": {
+              "text": "Adın ne?",
+              "file": "q/q07a-dede.mp3"
+            },
+            "mark": {
+              "text": "Adın ne?",
+              "file": "q/q07a-mark.mp3"
+            }
+          }
+        },
+        {
+          "text": "İsmin ne?",
+          "clips": {
+            "dede": {
+              "text": "İsmin ne?",
+              "file": "q/q07b-dede.mp3"
+            },
+            "mark": {
+              "text": "İsmin ne?",
+              "file": "q/q07b-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Adım Noah.",
+          "file": "r/r008.mp3"
+        },
+        {
+          "text": "Benim adım Noah.",
+          "file": "r/r009.mp3"
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "group": "about",
+      "meaning": "How old are you",
+      "prompts": [
+        {
+          "text": "Kaç yaşındasın?",
+          "clips": {
+            "teyze": {
+              "text": "Kaç yaşındasın yavrum?",
+              "file": "q/q08a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Kaç yaşındasın?",
+              "file": "q/q08a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Yedi yaşındayım.",
+          "file": "r/r010.mp3"
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "group": "about",
+      "meaning": "Where do you live",
+      "prompts": [
+        {
+          "text": "Nerede yaşıyorsun?",
+          "clips": {
+            "dede": {
+              "text": "Nerede yaşıyorsun?",
+              "file": "q/q09a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Nerede yaşıyorsun?",
+              "file": "q/q09a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "San Diego'da yaşıyorum.",
+          "file": "r/r011.mp3"
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "group": "about",
+      "meaning": "What grade are you in",
+      "prompts": [
+        {
+          "text": "Kaçıncı sınıfa gidiyorsun?",
+          "clips": {
+            "teyze": {
+              "text": "Kaçıncı sınıfa gidiyorsun?",
+              "file": "q/q10a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Kaçıncı sınıfa gidiyorsun?",
+              "file": "q/q10a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "İkinci sınıfa gidiyorum.",
+          "file": "r/r012.mp3"
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "group": "about",
+      "meaning": "Do you have a sibling",
+      "prompts": [
+        {
+          "text": "Kardeşin var mı?",
+          "clips": {
+            "dede": {
+              "text": "Kardeşin var mı?",
+              "file": "q/q11a-dede.mp3"
+            },
+            "mark": {
+              "text": "Kardeşin var mı?",
+              "file": "q/q11a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, bir kız kardeşim var.",
+          "file": "r/r013.mp3"
+        }
+      ]
+    },
+    {
+      "n": 12,
+      "group": "about",
+      "meaning": "What's your sister's name",
+      "prompts": [
+        {
+          "text": "Kardeşinin adı ne?",
+          "clips": {
+            "teyze": {
+              "text": "Kardeşinin adı ne?",
+              "file": "q/q12a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Kardeşinin adı ne?",
+              "file": "q/q12a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Adı Leyla.",
+          "file": "r/r014.mp3"
+        }
+      ]
+    },
+    {
+      "n": 13,
+      "group": "about",
+      "meaning": "Do you speak Turkish",
+      "prompts": [
+        {
+          "text": "Türkçe biliyor musun?",
+          "clips": {
+            "dede": {
+              "text": "Türkçe biliyor musun?",
+              "file": "q/q13a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Türkçe biliyor musun?",
+              "file": "q/q13a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, biraz biliyorum.",
+          "file": "r/r015.mp3"
+        }
+      ]
+    },
+    {
+      "n": 14,
+      "group": "about",
+      "meaning": "Nice to meet you",
+      "prompts": [
+        {
+          "text": "Tanıştığımıza memnun oldum.",
+          "clips": {
+            "teyze": {
+              "text": "Tanıştığımıza memnun oldum.",
+              "file": "q/q14a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Tanıştığımıza memnun oldum.",
+              "file": "q/q14a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Ben de memnun oldum.",
+          "file": "r/r016.mp3"
+        }
+      ]
+    },
+    {
+      "n": 15,
+      "group": "about",
+      "meaning": "Who did you come with",
+      "prompts": [
+        {
+          "text": "Kiminle geldin?",
+          "clips": {
+            "dede": {
+              "text": "Kiminle geldin?",
+              "file": "q/q15a-dede.mp3"
+            },
+            "mark": {
+              "text": "Kiminle geldin?",
+              "file": "q/q15a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Babamla geldim.",
+          "file": "r/r017.mp3"
+        }
+      ]
+    },
+    {
+      "n": 16,
+      "group": "food",
+      "meaning": "Are you hungry",
+      "prompts": [
+        {
+          "text": "Aç mısın?",
+          "clips": {
+            "teyze": {
+              "text": "Aç mısın canım?",
+              "file": "q/q16a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Aç mısın?",
+              "file": "q/q16a-mark.mp3"
+            }
+          }
+        },
+        {
+          "text": "Acıktın mı?",
+          "clips": {
+            "teyze": {
+              "text": "Acıktın mı?",
+              "file": "q/q16b-teyze.mp3"
+            },
+            "mark": {
+              "text": "Acıktın mı?",
+              "file": "q/q16b-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, açım.",
+          "file": "r/r018.mp3"
+        },
+        {
+          "text": "Hayır, tokum.",
+          "file": "r/r019.mp3"
+        }
+      ]
+    },
+    {
+      "n": 17,
+      "group": "food",
+      "meaning": "Are you thirsty",
+      "prompts": [
+        {
+          "text": "Susadın mı?",
+          "clips": {
+            "dede": {
+              "text": "Susadın mı yavrum?",
+              "file": "q/q17a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Susadın mı?",
+              "file": "q/q17a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, susadım.",
+          "file": "r/r020.mp3"
+        },
+        {
+          "text": "Hayır, susamadım.",
+          "file": "r/r021.mp3"
+        }
+      ]
+    },
+    {
+      "n": 18,
+      "group": "food",
+      "meaning": "What would you like",
+      "prompts": [
+        {
+          "text": "Ne istersin?",
+          "clips": {
+            "teyze": {
+              "text": "Ne istersin canım?",
+              "file": "q/q18a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Ne istersin?",
+              "file": "q/q18a-gamze.mp3"
+            }
+          }
+        },
+        {
+          "text": "Ne istiyorsun?",
+          "clips": {
+            "teyze": {
+              "text": "Ne istiyorsun?",
+              "file": "q/q18b-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Ne istiyorsun?",
+              "file": "q/q18b-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Dondurma istiyorum, lütfen.",
+          "file": "r/r022.mp3"
+        },
+        {
+          "text": "Su istiyorum.",
+          "file": "r/r023.mp3"
+        }
+      ]
+    },
+    {
+      "n": 19,
+      "group": "food",
+      "meaning": "What will you drink",
+      "prompts": [
+        {
+          "text": "Ne içersin?",
+          "clips": {
+            "dede": {
+              "text": "Ne içersin?",
+              "file": "q/q19a-dede.mp3"
+            },
+            "mark": {
+              "text": "Ne içersin?",
+              "file": "q/q19a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Su, lütfen.",
+          "file": "r/r024.mp3"
+        },
+        {
+          "text": "Meyve suyu, lütfen.",
+          "file": "r/r025.mp3"
+        }
+      ]
+    },
+    {
+      "n": 20,
+      "group": "food",
+      "meaning": "Want some more",
+      "prompts": [
+        {
+          "text": "Biraz daha ister misin?",
+          "clips": {
+            "teyze": {
+              "text": "Biraz daha ister misin?",
+              "file": "q/q20a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Biraz daha ister misin?",
+              "file": "q/q20a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, lütfen.",
+          "file": "r/r026.mp3"
+        },
+        {
+          "text": "Hayır, teşekkürler. Doydum.",
+          "file": "r/r027.mp3"
+        }
+      ]
+    },
+    {
+      "n": 21,
+      "group": "food",
+      "meaning": "Do you like it",
+      "prompts": [
+        {
+          "text": "Beğendin mi?",
+          "clips": {
+            "dede": {
+              "text": "Beğendin mi?",
+              "file": "q/q21a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Beğendin mi?",
+              "file": "q/q21a-gamze.mp3"
+            }
+          }
+        },
+        {
+          "text": "Güzel mi?",
+          "clips": {
+            "dede": {
+              "text": "Güzel mi?",
+              "file": "q/q21b-dede.mp3"
+            },
+            "gamze": {
+              "text": "Güzel mi?",
+              "file": "q/q21b-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, çok güzel!",
+          "file": "r/r028.mp3"
+        },
+        {
+          "text": "Çok beğendim.",
+          "file": "r/r029.mp3"
+        }
+      ]
+    },
+    {
+      "n": 22,
+      "group": "food",
+      "meaning": "Enjoy your meal",
+      "prompts": [
+        {
+          "text": "Afiyet olsun!",
+          "clips": {
+            "teyze": {
+              "text": "Afiyet olsun yavrum!",
+              "file": "q/q22a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Afiyet olsun!",
+              "file": "q/q22a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Teşekkür ederim.",
+          "file": "r/r030.mp3"
+        },
+        {
+          "text": "Eline sağlık.",
+          "file": "r/r031.mp3"
+        }
+      ]
+    },
+    {
+      "n": 23,
+      "group": "food",
+      "meaning": "Do you like ice cream",
+      "prompts": [
+        {
+          "text": "Dondurma sever misin?",
+          "clips": {
+            "dede": {
+              "text": "Dondurma sever misin?",
+              "file": "q/q23a-dede.mp3"
+            },
+            "mark": {
+              "text": "Dondurma sever misin?",
+              "file": "q/q23a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, çok severim!",
+          "file": "r/r032.mp3"
+        }
+      ]
+    },
+    {
+      "n": 24,
+      "group": "food",
+      "meaning": "Will you have tea",
+      "prompts": [
+        {
+          "text": "Çay içer misin?",
+          "clips": {
+            "teyze": {
+              "text": "Çay içer misin?",
+              "file": "q/q24a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Çay içer misin?",
+              "file": "q/q24a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Hayır, teşekkürler.",
+          "file": "r/r033.mp3"
+        }
+      ]
+    },
+    {
+      "n": 25,
+      "group": "food",
+      "meaning": "Which one do you want",
+      "prompts": [
+        {
+          "text": "Hangisini istersin?",
+          "clips": {
+            "dede": {
+              "text": "Hangisini istersin?",
+              "file": "q/q25a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Hangisini istersin?",
+              "file": "q/q25a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Bunu istiyorum.",
+          "file": "r/r034.mp3"
+        }
+      ]
+    },
+    {
+      "n": 26,
+      "group": "manners",
+      "meaning": "Thank you / you're welcome",
+      "prompts": [
+        {
+          "text": "Teşekkür ederim.",
+          "clips": {
+            "teyze": {
+              "text": "Teşekkür ederim.",
+              "file": "q/q26a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Teşekkür ederim.",
+              "file": "q/q26a-gamze.mp3"
+            }
+          }
+        },
+        {
+          "text": "Sağ ol.",
+          "clips": {
+            "teyze": {
+              "text": "Sağ ol.",
+              "file": "q/q26b-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Sağ ol.",
+              "file": "q/q26b-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Rica ederim.",
+          "file": "r/r035.mp3"
+        },
+        {
+          "text": "Bir şey değil.",
+          "file": "r/r036.mp3"
+        }
+      ]
+    },
+    {
+      "n": 27,
+      "group": "manners",
+      "meaning": "Here you go",
+      "prompts": [
+        {
+          "text": "Buyur.",
+          "clips": {
+            "dede": {
+              "text": "Buyur canım.",
+              "file": "q/q27a-dede.mp3"
+            },
+            "mark": {
+              "text": "Buyur.",
+              "file": "q/q27a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Teşekkür ederim.",
+          "file": "r/r030.mp3"
+        }
+      ]
+    },
+    {
+      "n": 28,
+      "group": "manners",
+      "meaning": "Sorry / it's fine",
+      "prompts": [
+        {
+          "text": "Özür dilerim.",
+          "clips": {
+            "teyze": {
+              "text": "Özür dilerim.",
+              "file": "q/q28a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Özür dilerim.",
+              "file": "q/q28a-mark.mp3"
+            }
+          }
+        },
+        {
+          "text": "Pardon.",
+          "clips": {
+            "teyze": {
+              "text": "Pardon.",
+              "file": "q/q28b-teyze.mp3"
+            },
+            "mark": {
+              "text": "Pardon.",
+              "file": "q/q28b-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Önemli değil.",
+          "file": "r/r037.mp3"
+        },
+        {
+          "text": "Sorun değil.",
+          "file": "r/r038.mp3"
+        }
+      ]
+    },
+    {
+      "n": 29,
+      "group": "manners",
+      "meaning": "Bless you (after a sneeze)",
+      "prompts": [
+        {
+          "text": "Çok yaşa!",
+          "clips": {
+            "dede": {
+              "text": "Çok yaşa yavrum!",
+              "file": "q/q29a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Çok yaşa!",
+              "file": "q/q29a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Sen de gör!",
+          "file": "r/r039.mp3"
+        }
+      ]
+    },
+    {
+      "n": 30,
+      "group": "manners",
+      "meaning": "Get well soon",
+      "prompts": [
+        {
+          "text": "Geçmiş olsun.",
+          "clips": {
+            "teyze": {
+              "text": "Geçmiş olsun.",
+              "file": "q/q30a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Geçmiş olsun.",
+              "file": "q/q30a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Teşekkürler.",
+          "file": "r/r040.mp3"
+        }
+      ]
+    },
+    {
+      "n": 31,
+      "group": "manners",
+      "meaning": "Will you help",
+      "prompts": [
+        {
+          "text": "Yardım eder misin?",
+          "clips": {
+            "dede": {
+              "text": "Yardım eder misin?",
+              "file": "q/q31a-dede.mp3"
+            },
+            "mark": {
+              "text": "Yardım eder misin?",
+              "file": "q/q31a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Tabii!",
+          "file": "r/r041.mp3"
+        },
+        {
+          "text": "Tamam.",
+          "file": "r/r042.mp3"
+        }
+      ]
+    },
+    {
+      "n": 32,
+      "group": "manners",
+      "meaning": "Can you wait a minute",
+      "prompts": [
+        {
+          "text": "Bir dakika bekler misin?",
+          "clips": {
+            "teyze": {
+              "text": "Bir dakika bekler misin?",
+              "file": "q/q32a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Bir dakika bekler misin?",
+              "file": "q/q32a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Tamam, beklerim.",
+          "file": "r/r043.mp3"
+        }
+      ]
+    },
+    {
+      "n": 33,
+      "group": "manners",
+      "meaning": "Did you understand",
+      "prompts": [
+        {
+          "text": "Anladın mı?",
+          "clips": {
+            "dede": {
+              "text": "Anladın mı?",
+              "file": "q/q33a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Anladın mı?",
+              "file": "q/q33a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, anladım.",
+          "file": "r/r044.mp3"
+        },
+        {
+          "text": "Hayır, anlamadım.",
+          "file": "r/r045.mp3"
+        }
+      ]
+    },
+    {
+      "n": 34,
+      "group": "manners",
+      "meaning": "Are you sure",
+      "prompts": [
+        {
+          "text": "Emin misin?",
+          "clips": {
+            "teyze": {
+              "text": "Emin misin?",
+              "file": "q/q34a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Emin misin?",
+              "file": "q/q34a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, eminim.",
+          "file": "r/r046.mp3"
+        }
+      ]
+    },
+    {
+      "n": 35,
+      "group": "feelings",
+      "meaning": "Are you tired",
+      "prompts": [
+        {
+          "text": "Yoruldun mu?",
+          "clips": {
+            "dede": {
+              "text": "Yoruldun mu yavrum?",
+              "file": "q/q35a-dede.mp3"
+            },
+            "mark": {
+              "text": "Yoruldun mu?",
+              "file": "q/q35a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, çok yoruldum.",
+          "file": "r/r047.mp3"
+        },
+        {
+          "text": "Hayır, yorulmadım.",
+          "file": "r/r048.mp3"
+        }
+      ]
+    },
+    {
+      "n": 36,
+      "group": "feelings",
+      "meaning": "Are you cold",
+      "prompts": [
+        {
+          "text": "Üşüdün mü?",
+          "clips": {
+            "teyze": {
+              "text": "Üşüdün mü canım?",
+              "file": "q/q36a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Üşüdün mü?",
+              "file": "q/q36a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Hayır, üşümedim.",
+          "file": "r/r049.mp3"
+        },
+        {
+          "text": "Evet, biraz üşüdüm.",
+          "file": "r/r050.mp3"
+        }
+      ]
+    },
+    {
+      "n": 37,
+      "group": "feelings",
+      "meaning": "Are you sleepy",
+      "prompts": [
+        {
+          "text": "Uykun var mı?",
+          "clips": {
+            "dede": {
+              "text": "Uykun var mı?",
+              "file": "q/q37a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Uykun var mı?",
+              "file": "q/q37a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Hayır, uykum yok!",
+          "file": "r/r051.mp3"
+        },
+        {
+          "text": "Evet, uykum var.",
+          "file": "r/r052.mp3"
+        }
+      ]
+    },
+    {
+      "n": 38,
+      "group": "feelings",
+      "meaning": "What's wrong",
+      "prompts": [
+        {
+          "text": "Neyin var?",
+          "clips": {
+            "teyze": {
+              "text": "Neyin var canım?",
+              "file": "q/q38a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Neyin var?",
+              "file": "q/q38a-gamze.mp3"
+            }
+          }
+        },
+        {
+          "text": "Ne oldu?",
+          "clips": {
+            "teyze": {
+              "text": "Ne oldu?",
+              "file": "q/q38b-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Ne oldu?",
+              "file": "q/q38b-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Bir şeyim yok.",
+          "file": "r/r053.mp3"
+        },
+        {
+          "text": "Karnım ağrıyor.",
+          "file": "r/r054.mp3"
+        }
+      ]
+    },
+    {
+      "n": 39,
+      "group": "feelings",
+      "meaning": "Are you happy",
+      "prompts": [
+        {
+          "text": "Mutlu musun?",
+          "clips": {
+            "dede": {
+              "text": "Mutlu musun?",
+              "file": "q/q39a-dede.mp3"
+            },
+            "mark": {
+              "text": "Mutlu musun?",
+              "file": "q/q39a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, çok mutluyum!",
+          "file": "r/r055.mp3"
+        }
+      ]
+    },
+    {
+      "n": 40,
+      "group": "feelings",
+      "meaning": "Were you scared",
+      "prompts": [
+        {
+          "text": "Korktun mu?",
+          "clips": {
+            "teyze": {
+              "text": "Korktun mu?",
+              "file": "q/q40a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Korktun mu?",
+              "file": "q/q40a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Hayır, korkmadım!",
+          "file": "r/r056.mp3"
+        }
+      ]
+    },
+    {
+      "n": 41,
+      "group": "feelings",
+      "meaning": "Did you have fun",
+      "prompts": [
+        {
+          "text": "Eğlendin mi?",
+          "clips": {
+            "dede": {
+              "text": "Eğlendin mi?",
+              "file": "q/q41a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Eğlendin mi?",
+              "file": "q/q41a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, çok eğlendim!",
+          "file": "r/r057.mp3"
+        }
+      ]
+    },
+    {
+      "n": 42,
+      "group": "feelings",
+      "meaning": "Are you bored",
+      "prompts": [
+        {
+          "text": "Sıkıldın mı?",
+          "clips": {
+            "teyze": {
+              "text": "Sıkıldın mı?",
+              "file": "q/q42a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Sıkıldın mı?",
+              "file": "q/q42a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Hayır, sıkılmadım.",
+          "file": "r/r058.mp3"
+        },
+        {
+          "text": "Evet, biraz sıkıldım.",
+          "file": "r/r059.mp3"
+        }
+      ]
+    },
+    {
+      "n": 43,
+      "group": "doing",
+      "meaning": "What are you doing",
+      "prompts": [
+        {
+          "text": "Ne yapıyorsun?",
+          "clips": {
+            "dede": {
+              "text": "Ne yapıyorsun?",
+              "file": "q/q43a-dede.mp3"
+            },
+            "mark": {
+              "text": "Ne yapıyorsun?",
+              "file": "q/q43a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Oyun oynuyorum.",
+          "file": "r/r060.mp3"
+        }
+      ]
+    },
+    {
+      "n": 44,
+      "group": "doing",
+      "meaning": "Where are you going",
+      "prompts": [
+        {
+          "text": "Nereye gidiyorsun?",
+          "clips": {
+            "teyze": {
+              "text": "Nereye gidiyorsun?",
+              "file": "q/q44a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Nereye gidiyorsun?",
+              "file": "q/q44a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Oyun alanına gidiyorum.",
+          "file": "r/r061.mp3"
+        },
+        {
+          "text": "Eve gidiyorum.",
+          "file": "r/r062.mp3"
+        }
+      ]
+    },
+    {
+      "n": 45,
+      "group": "doing",
+      "meaning": "How's school",
+      "prompts": [
+        {
+          "text": "Okul nasıl?",
+          "clips": {
+            "dede": {
+              "text": "Okul nasıl?",
+              "file": "q/q45a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Okul nasıl?",
+              "file": "q/q45a-gamze.mp3"
+            }
+          }
+        },
+        {
+          "text": "Okul nasıl gidiyor?",
+          "clips": {
+            "dede": {
+              "text": "Okul nasıl gidiyor?",
+              "file": "q/q45b-dede.mp3"
+            },
+            "gamze": {
+              "text": "Okul nasıl gidiyor?",
+              "file": "q/q45b-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Çok iyi.",
+          "file": "r/r063.mp3"
+        },
+        {
+          "text": "Güzel gidiyor.",
+          "file": "r/r064.mp3"
+        }
+      ]
+    },
+    {
+      "n": 46,
+      "group": "doing",
+      "meaning": "Favorite color",
+      "prompts": [
+        {
+          "text": "En sevdiğin renk ne?",
+          "clips": {
+            "teyze": {
+              "text": "En sevdiğin renk ne?",
+              "file": "q/q46a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "En sevdiğin renk ne?",
+              "file": "q/q46a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Yeşil.",
+          "file": "r/r065.mp3"
+        },
+        {
+          "text": "En sevdiğim renk yeşil.",
+          "file": "r/r066.mp3"
+        }
+      ]
+    },
+    {
+      "n": 47,
+      "group": "doing",
+      "meaning": "Favorite food",
+      "prompts": [
+        {
+          "text": "En sevdiğin yemek ne?",
+          "clips": {
+            "dede": {
+              "text": "En sevdiğin yemek ne?",
+              "file": "q/q47a-dede.mp3"
+            },
+            "mark": {
+              "text": "En sevdiğin yemek ne?",
+              "file": "q/q47a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Çikolata.",
+          "file": "r/r067.mp3"
+        },
+        {
+          "text": "En sevdiğim yemek çikolata.",
+          "file": "r/r068.mp3"
+        }
+      ]
+    },
+    {
+      "n": 48,
+      "group": "doing",
+      "meaning": "Shall we play",
+      "prompts": [
+        {
+          "text": "Oyun oynayalım mı?",
+          "clips": {
+            "teyze": {
+              "text": "Oyun oynayalım mı?",
+              "file": "q/q48a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Oyun oynayalım mı?",
+              "file": "q/q48a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, oynayalım!",
+          "file": "r/r069.mp3"
+        },
+        {
+          "text": "Olur!",
+          "file": "r/r070.mp3"
+        }
+      ]
+    },
+    {
+      "n": 49,
+      "group": "doing",
+      "meaning": "Are you ready",
+      "prompts": [
+        {
+          "text": "Hazır mısın?",
+          "clips": {
+            "dede": {
+              "text": "Hazır mısın?",
+              "file": "q/q49a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Hazır mısın?",
+              "file": "q/q49a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Hazırım!",
+          "file": "r/r071.mp3"
+        },
+        {
+          "text": "Daha değil.",
+          "file": "r/r072.mp3"
+        }
+      ]
+    },
+    {
+      "n": 50,
+      "group": "doing",
+      "meaning": "What did you do today",
+      "prompts": [
+        {
+          "text": "Bugün ne yaptın?",
+          "clips": {
+            "teyze": {
+              "text": "Bugün ne yaptın?",
+              "file": "q/q50a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Bugün ne yaptın?",
+              "file": "q/q50a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Oyun oynadım.",
+          "file": "r/r073.mp3"
+        },
+        {
+          "text": "Okula gittim.",
+          "file": "r/r074.mp3"
+        }
+      ]
+    },
+    {
+      "n": 51,
+      "group": "family",
+      "meaning": "I love you",
+      "prompts": [
+        {
+          "text": "Seni seviyorum.",
+          "clips": {
+            "teyze": {
+              "text": "Seni seviyorum bir tanem.",
+              "file": "q/q51a-teyze.mp3"
+            },
+            "dede": {
+              "text": "Seni seviyorum bir tanem.",
+              "file": "q/q51a-dede.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Ben de seni seviyorum.",
+          "file": "r/r075.mp3"
+        }
+      ]
+    },
+    {
+      "n": 52,
+      "group": "family",
+      "meaning": "I missed you",
+      "prompts": [
+        {
+          "text": "Seni çok özledim.",
+          "clips": {
+            "teyze": {
+              "text": "Seni çok özledim canım.",
+              "file": "q/q52a-teyze.mp3"
+            },
+            "dede": {
+              "text": "Seni çok özledim canım.",
+              "file": "q/q52a-dede.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Ben de seni özledim.",
+          "file": "r/r076.mp3"
+        }
+      ]
+    },
+    {
+      "n": 53,
+      "group": "family",
+      "meaning": "How's your mom / dad",
+      "prompts": [
+        {
+          "text": "Annen nasıl?",
+          "clips": {
+            "teyze": {
+              "text": "Annen nasıl?",
+              "file": "q/q53a-teyze.mp3"
+            },
+            "dede": {
+              "text": "Annen nasıl?",
+              "file": "q/q53a-dede.mp3"
+            }
+          }
+        },
+        {
+          "text": "Baban nasıl?",
+          "clips": {
+            "teyze": {
+              "text": "Baban nasıl?",
+              "file": "q/q53b-teyze.mp3"
+            },
+            "dede": {
+              "text": "Baban nasıl?",
+              "file": "q/q53b-dede.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "İyi, teşekkürler.",
+          "file": "r/r077.mp3"
+        },
+        {
+          "text": "İyi, selamı var.",
+          "file": "r/r078.mp3"
+        }
+      ]
+    },
+    {
+      "n": 54,
+      "group": "family",
+      "meaning": "Say hi to your mom",
+      "prompts": [
+        {
+          "text": "Annene selam söyle.",
+          "clips": {
+            "teyze": {
+              "text": "Annene selam söyle.",
+              "file": "q/q54a-teyze.mp3"
+            },
+            "dede": {
+              "text": "Annene selam söyle.",
+              "file": "q/q54a-dede.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Tamam, söylerim.",
+          "file": "r/r079.mp3"
+        }
+      ]
+    },
+    {
+      "n": 55,
+      "group": "family",
+      "meaning": "Look how big you are",
+      "prompts": [
+        {
+          "text": "Ne kadar büyümüşsün!",
+          "clips": {
+            "teyze": {
+              "text": "Ne kadar büyümüşsün!",
+              "file": "q/q55a-teyze.mp3"
+            },
+            "dede": {
+              "text": "Ne kadar büyümüşsün!",
+              "file": "q/q55a-dede.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Evet, büyüdüm!",
+          "file": "r/r080.mp3"
+        }
+      ]
+    },
+    {
+      "n": 56,
+      "group": "family",
+      "meaning": "Give me a kiss",
+      "prompts": [
+        {
+          "text": "Bir öpücük ver!",
+          "clips": {
+            "teyze": {
+              "text": "Bir öpücük ver yavrum!",
+              "file": "q/q56a-teyze.mp3"
+            },
+            "dede": {
+              "text": "Bir öpücük ver yavrum!",
+              "file": "q/q56a-dede.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Tamam!",
+          "file": "r/r081.mp3"
+        }
+      ]
+    },
+    {
+      "n": 57,
+      "group": "family",
+      "meaning": "Happy holiday",
+      "prompts": [
+        {
+          "text": "İyi bayramlar!",
+          "clips": {
+            "teyze": {
+              "text": "İyi bayramlar!",
+              "file": "q/q57a-teyze.mp3"
+            },
+            "dede": {
+              "text": "İyi bayramlar!",
+              "file": "q/q57a-dede.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "İyi bayramlar!",
+          "file": "r/r082.mp3"
+        }
+      ]
+    },
+    {
+      "n": 58,
+      "group": "family",
+      "meaning": "Happy birthday",
+      "prompts": [
+        {
+          "text": "Doğum günün kutlu olsun!",
+          "clips": {
+            "teyze": {
+              "text": "Doğum günün kutlu olsun!",
+              "file": "q/q58a-teyze.mp3"
+            },
+            "dede": {
+              "text": "Doğum günün kutlu olsun!",
+              "file": "q/q58a-dede.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Teşekkür ederim.",
+          "file": "r/r030.mp3"
+        }
+      ]
+    },
+    {
+      "n": 59,
+      "group": "goodbyes",
+      "meaning": "Goodbye (they are leaving)",
+      "prompts": [
+        {
+          "text": "Hoşça kal!",
+          "clips": {
+            "dede": {
+              "text": "Hoşça kal!",
+              "file": "q/q59a-dede.mp3"
+            },
+            "mark": {
+              "text": "Hoşça kal!",
+              "file": "q/q59a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Güle güle!",
+          "file": "r/r083.mp3"
+        }
+      ]
+    },
+    {
+      "n": 60,
+      "group": "goodbyes",
+      "meaning": "Goodbye (he is leaving)",
+      "prompts": [
+        {
+          "text": "Güle güle!",
+          "clips": {
+            "teyze": {
+              "text": "Güle güle yavrum!",
+              "file": "q/q60a-teyze.mp3"
+            },
+            "mark": {
+              "text": "Güle güle!",
+              "file": "q/q60a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Hoşça kal!",
+          "file": "r/r084.mp3"
+        }
+      ]
+    },
+    {
+      "n": 61,
+      "group": "goodbyes",
+      "meaning": "See you",
+      "prompts": [
+        {
+          "text": "Görüşürüz!",
+          "clips": {
+            "dede": {
+              "text": "Görüşürüz!",
+              "file": "q/q61a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Görüşürüz!",
+              "file": "q/q61a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Görüşürüz!",
+          "file": "r/r085.mp3"
+        }
+      ]
+    },
+    {
+      "n": 62,
+      "group": "goodbyes",
+      "meaning": "Take care",
+      "prompts": [
+        {
+          "text": "Kendine iyi bak.",
+          "clips": {
+            "teyze": {
+              "text": "Kendine iyi bak yavrum.",
+              "file": "q/q62a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Kendine iyi bak.",
+              "file": "q/q62a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Sen de kendine iyi bak.",
+          "file": "r/r086.mp3"
+        }
+      ]
+    },
+    {
+      "n": 63,
+      "group": "goodbyes",
+      "meaning": "Have a good day",
+      "prompts": [
+        {
+          "text": "İyi günler!",
+          "clips": {
+            "dede": {
+              "text": "İyi günler!",
+              "file": "q/q63a-dede.mp3"
+            },
+            "mark": {
+              "text": "İyi günler!",
+              "file": "q/q63a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "İyi günler!",
+          "file": "r/r087.mp3"
+        }
+      ]
+    },
+    {
+      "n": 64,
+      "group": "goodbyes",
+      "meaning": "Good night",
+      "prompts": [
+        {
+          "text": "İyi geceler!",
+          "clips": {
+            "teyze": {
+              "text": "İyi geceler bir tanem!",
+              "file": "q/q64a-teyze.mp3"
+            },
+            "mark": {
+              "text": "İyi geceler!",
+              "file": "q/q64a-mark.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "İyi geceler!",
+          "file": "r/r088.mp3"
+        }
+      ]
+    },
+    {
+      "n": 65,
+      "group": "goodbyes",
+      "meaning": "Come again",
+      "prompts": [
+        {
+          "text": "Yine gel!",
+          "clips": {
+            "dede": {
+              "text": "Yine gel!",
+              "file": "q/q65a-dede.mp3"
+            },
+            "gamze": {
+              "text": "Yine gel!",
+              "file": "q/q65a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Tamam, gelirim.",
+          "file": "r/r089.mp3"
+        }
+      ]
+    },
+    {
+      "n": 66,
+      "group": "goodbyes",
+      "meaning": "Sweet dreams",
+      "prompts": [
+        {
+          "text": "Tatlı rüyalar!",
+          "clips": {
+            "teyze": {
+              "text": "Tatlı rüyalar yavrum!",
+              "file": "q/q66a-teyze.mp3"
+            },
+            "gamze": {
+              "text": "Tatlı rüyalar!",
+              "file": "q/q66a-gamze.mp3"
+            }
+          }
+        }
+      ],
+      "replies": [
+        {
+          "text": "Sana da.",
+          "file": "r/r090.mp3"
+        }
+      ]
+    }
+  ],
+  "baba": [
+    {
+      "id": "B1",
+      "text": "Noah! Neredesin?",
+      "when": "looking for him",
+      "file": "baba/B1.mp3",
+      "replies": [
+        {
+          "text": "Buradayım!",
+          "file": "r/r091.mp3"
+        }
+      ]
+    },
+    {
+      "id": "B2",
+      "text": "Hadi, eve gidiyoruz!",
+      "when": "start of the chase",
+      "file": "baba/B2.mp3",
+      "replies": []
+    },
+    {
+      "id": "B3",
+      "text": "Son beş dakika!",
+      "when": "early warning",
+      "file": "baba/B3.mp3",
+      "replies": []
+    },
+    {
+      "id": "B4",
+      "text": "Geç oldu!",
+      "when": "looking for him",
+      "file": "baba/B4.mp3",
+      "replies": []
+    },
+    {
+      "id": "B5",
+      "text": "Seni duyuyorum!",
+      "when": "getting close",
+      "file": "baba/B5.mp3",
+      "replies": []
+    },
+    {
+      "id": "B6",
+      "text": "Seni gördüm!",
+      "when": "sees him",
+      "file": "baba/B6.mp3",
+      "replies": []
+    },
+    {
+      "id": "B7",
+      "text": "Gel buraya!",
+      "when": "chasing",
+      "file": "baba/B7.mp3",
+      "replies": []
+    },
+    {
+      "id": "B8",
+      "text": "Kaçamazsın!",
+      "when": "chasing",
+      "file": "baba/B8.mp3",
+      "replies": []
+    },
+    {
+      "id": "B9",
+      "text": "Dur!",
+      "when": "chasing",
+      "file": "baba/B9.mp3",
+      "replies": []
+    },
+    {
+      "id": "B10",
+      "text": "Hadi oğlum!",
+      "when": "after a wrong answer",
+      "file": "baba/B10.mp3",
+      "replies": []
+    },
+    {
+      "id": "B11",
+      "text": "Gel lan buraya!",
+      "when": "top speed only",
+      "file": "baba/B11.mp3",
+      "replies": []
+    },
+    {
+      "id": "B12",
+      "text": "Yakaladım!",
+      "when": "catches him",
+      "file": "baba/B12.mp3",
+      "replies": []
+    },
+    {
+      "id": "B13",
+      "text": "Of, yoruldum...",
+      "when": "after he gets away",
+      "file": "baba/B13.mp3",
+      "replies": []
+    },
+    {
+      "id": "B14",
+      "text": "Tamam, sen kazandın. Hadi eve gidelim.",
+      "when": "the ending",
+      "file": "baba/B14.mp3",
+      "replies": []
+    },
+    {
+      "id": "B15",
+      "text": "Hadi, gidiyoruz!",
+      "when": "talk-back question",
+      "file": "baba/B15.mp3",
+      "replies": [
+        {
+          "text": "Beş dakika daha, lütfen!",
+          "file": "r/r092.mp3"
+        }
+      ]
+    },
+    {
+      "id": "B16",
+      "text": "Geliyor musun?",
+      "when": "talk-back question",
+      "file": "baba/B16.mp3",
+      "replies": [
+        {
+          "text": "Geliyorum!",
+          "file": "r/r093.mp3"
+        }
+      ]
+    }
+  ],
+  "narration": [
+    {
+      "id": "N1",
+      "text": "Burası İstinye Park. Saat geç oldu, mağazalar kapanıyor.",
+      "file": "narr/N1.mp3"
+    },
+    {
+      "id": "N2",
+      "text": "Baba \"Hadi, eve gidiyoruz!\" diyor.",
+      "file": "narr/N2.mp3"
+    },
+    {
+      "id": "N3",
+      "text": "Ama Noah'nın işi bitmedi. Yedi şey bulması lazım.",
+      "file": "narr/N3.mp3"
+    },
+    {
+      "id": "N4",
+      "text": "Dikkat et Noah... Baba geliyor!",
+      "file": "narr/N4.mp3"
+    },
+    {
+      "id": "PA1",
+      "text": "Sayın ziyaretçilerimiz, alışveriş merkezimiz kapanmıştır. İyi geceler dileriz.",
+      "file": "narr/PA1.mp3"
+    },
+    {
+      "id": "UI1",
+      "text": "Tekrar söyler misin?",
+      "file": "narr/UI1.mp3"
+    }
+  ],
+  "seconds": {
+    "q/q01a-dede.mp3": 1.7,
+    "q/q01a-gamze.mp3": 1.2,
+    "q/q01b-dede.mp3": 1.2,
+    "q/q01b-gamze.mp3": 1.1,
+    "r/r001.mp3": 0.8,
+    "q/q02a-teyze.mp3": 1.4,
+    "q/q02a-gamze.mp3": 1.3,
+    "r/r002.mp3": 0.9,
+    "q/q03a-dede.mp3": 1.0,
+    "q/q03a-mark.mp3": 1.1,
+    "r/r003.mp3": 1.1,
+    "q/q04a-teyze.mp3": 1.8,
+    "q/q04a-mark.mp3": 1.3,
+    "r/r004.mp3": 0.9,
+    "q/q05a-dede.mp3": 1.3,
+    "q/q05a-gamze.mp3": 1.2,
+    "q/q05b-dede.mp3": 1.0,
+    "q/q05b-gamze.mp3": 1.1,
+    "q/q05c-dede.mp3": 1.3,
+    "q/q05c-gamze.mp3": 1.2,
+    "r/r005.mp3": 2.6,
+    "r/r006.mp3": 1.5,
+    "q/q06a-teyze.mp3": 1.4,
+    "q/q06a-gamze.mp3": 1.8,
+    "r/r007.mp3": 1.7,
+    "q/q07a-dede.mp3": 1.0,
+    "q/q07a-mark.mp3": 1.1,
+    "q/q07b-dede.mp3": 1.1,
+    "q/q07b-mark.mp3": 1.1,
+    "r/r008.mp3": 1.3,
+    "r/r009.mp3": 1.4,
+    "q/q08a-teyze.mp3": 1.7,
+    "q/q08a-mark.mp3": 1.4,
+    "r/r010.mp3": 1.2,
+    "q/q09a-dede.mp3": 1.3,
+    "q/q09a-gamze.mp3": 1.3,
+    "r/r011.mp3": 1.6,
+    "q/q10a-teyze.mp3": 1.9,
+    "q/q10a-gamze.mp3": 1.9,
+    "r/r012.mp3": 1.5,
+    "q/q11a-dede.mp3": 1.3,
+    "q/q11a-mark.mp3": 1.3,
+    "r/r013.mp3": 2.1,
+    "q/q12a-teyze.mp3": 1.6,
+    "q/q12a-mark.mp3": 1.8,
+    "r/r014.mp3": 1.1,
+    "q/q13a-dede.mp3": 1.6,
+    "q/q13a-gamze.mp3": 1.8,
+    "r/r015.mp3": 1.9,
+    "q/q14a-teyze.mp3": 1.9,
+    "q/q14a-gamze.mp3": 2.0,
+    "r/r016.mp3": 1.3,
+    "q/q15a-dede.mp3": 1.3,
+    "q/q15a-mark.mp3": 1.4,
+    "r/r017.mp3": 1.2,
+    "q/q16a-teyze.mp3": 1.2,
+    "q/q16a-mark.mp3": 1.1,
+    "q/q16b-teyze.mp3": 1.2,
+    "q/q16b-mark.mp3": 1.2,
+    "r/r018.mp3": 1.4,
+    "r/r019.mp3": 1.4,
+    "q/q17a-dede.mp3": 1.3,
+    "q/q17a-gamze.mp3": 1.0,
+    "r/r020.mp3": 1.8,
+    "r/r021.mp3": 1.7,
+    "q/q18a-teyze.mp3": 1.6,
+    "q/q18a-gamze.mp3": 1.3,
+    "q/q18b-teyze.mp3": 1.3,
+    "q/q18b-gamze.mp3": 1.3,
+    "r/r022.mp3": 2.2,
+    "r/r023.mp3": 1.3,
+    "q/q19a-dede.mp3": 1.0,
+    "q/q19a-mark.mp3": 1.0,
+    "r/r024.mp3": 1.5,
+    "r/r025.mp3": 1.6,
+    "q/q20a-teyze.mp3": 1.6,
+    "q/q20a-mark.mp3": 1.8,
+    "r/r026.mp3": 1.4,
+    "r/r027.mp3": 2.2,
+    "q/q21a-dede.mp3": 1.2,
+    "q/q21a-gamze.mp3": 1.3,
+    "q/q21b-dede.mp3": 1.1,
+    "q/q21b-gamze.mp3": 1.2,
+    "r/r028.mp3": 1.6,
+    "r/r029.mp3": 1.1,
+    "q/q22a-teyze.mp3": 1.7,
+    "q/q22a-gamze.mp3": 1.4,
+    "r/r030.mp3": 1.1,
+    "r/r031.mp3": 1.3,
+    "q/q23a-dede.mp3": 1.6,
+    "q/q23a-mark.mp3": 1.6,
+    "r/r032.mp3": 1.6,
+    "q/q24a-teyze.mp3": 1.0,
+    "q/q24a-mark.mp3": 1.2,
+    "r/r033.mp3": 1.7,
+    "q/q25a-dede.mp3": 1.5,
+    "q/q25a-gamze.mp3": 1.7,
+    "r/r034.mp3": 1.1,
+    "q/q26a-teyze.mp3": 1.4,
+    "q/q26a-gamze.mp3": 1.4,
+    "q/q26b-teyze.mp3": 1.2,
+    "q/q26b-gamze.mp3": 1.2,
+    "r/r035.mp3": 1.1,
+    "r/r036.mp3": 1.0,
+    "q/q27a-dede.mp3": 0.9,
+    "q/q27a-mark.mp3": 0.7,
+    "q/q28a-teyze.mp3": 1.0,
+    "q/q28a-mark.mp3": 1.3,
+    "q/q28b-teyze.mp3": 0.8,
+    "q/q28b-mark.mp3": 0.8,
+    "r/r037.mp3": 1.0,
+    "r/r038.mp3": 1.0,
+    "q/q29a-dede.mp3": 1.8,
+    "q/q29a-gamze.mp3": 1.3,
+    "r/r039.mp3": 1.0,
+    "q/q30a-teyze.mp3": 1.3,
+    "q/q30a-gamze.mp3": 1.4,
+    "r/r040.mp3": 1.0,
+    "q/q31a-dede.mp3": 1.5,
+    "q/q31a-mark.mp3": 1.5,
+    "r/r041.mp3": 0.7,
+    "r/r042.mp3": 0.6,
+    "q/q32a-teyze.mp3": 1.6,
+    "q/q32a-mark.mp3": 1.5,
+    "r/r043.mp3": 1.4,
+    "q/q33a-dede.mp3": 1.1,
+    "q/q33a-gamze.mp3": 1.3,
+    "r/r044.mp3": 1.5,
+    "r/r045.mp3": 1.7,
+    "q/q34a-teyze.mp3": 1.3,
+    "q/q34a-gamze.mp3": 1.4,
+    "r/r046.mp3": 1.4,
+    "q/q35a-dede.mp3": 1.6,
+    "q/q35a-mark.mp3": 1.2,
+    "r/r047.mp3": 1.8,
+    "r/r048.mp3": 1.7,
+    "q/q36a-teyze.mp3": 1.3,
+    "q/q36a-mark.mp3": 1.2,
+    "r/r049.mp3": 1.7,
+    "r/r050.mp3": 1.9,
+    "q/q37a-dede.mp3": 1.0,
+    "q/q37a-gamze.mp3": 1.2,
+    "r/r051.mp3": 1.8,
+    "r/r052.mp3": 2.0,
+    "q/q38a-teyze.mp3": 1.4,
+    "q/q38a-gamze.mp3": 1.2,
+    "q/q38b-teyze.mp3": 1.1,
+    "q/q38b-gamze.mp3": 1.1,
+    "r/r053.mp3": 1.3,
+    "r/r054.mp3": 1.6,
+    "q/q39a-dede.mp3": 1.3,
+    "q/q39a-mark.mp3": 1.3,
+    "r/r055.mp3": 1.8,
+    "q/q40a-teyze.mp3": 1.2,
+    "q/q40a-mark.mp3": 1.5,
+    "r/r056.mp3": 1.6,
+    "q/q41a-dede.mp3": 1.3,
+    "q/q41a-gamze.mp3": 1.3,
+    "r/r057.mp3": 1.8,
+    "q/q42a-teyze.mp3": 1.0,
+    "q/q42a-gamze.mp3": 1.0,
+    "r/r058.mp3": 1.7,
+    "r/r059.mp3": 2.0,
+    "q/q43a-dede.mp3": 1.1,
+    "q/q43a-mark.mp3": 1.3,
+    "r/r060.mp3": 1.1,
+    "q/q44a-teyze.mp3": 1.5,
+    "q/q44a-mark.mp3": 1.5,
+    "r/r061.mp3": 1.5,
+    "r/r062.mp3": 1.1,
+    "q/q45a-dede.mp3": 1.0,
+    "q/q45a-gamze.mp3": 1.2,
+    "q/q45b-dede.mp3": 1.5,
+    "q/q45b-gamze.mp3": 1.3,
+    "r/r063.mp3": 0.9,
+    "r/r064.mp3": 1.2,
+    "q/q46a-teyze.mp3": 1.6,
+    "q/q46a-gamze.mp3": 1.7,
+    "r/r065.mp3": 0.9,
+    "r/r066.mp3": 2.0,
+    "q/q47a-dede.mp3": 1.8,
+    "q/q47a-mark.mp3": 1.7,
+    "r/r067.mp3": 1.1,
+    "r/r068.mp3": 2.1,
+    "q/q48a-teyze.mp3": 1.4,
+    "q/q48a-mark.mp3": 1.3,
+    "r/r069.mp3": 1.5,
+    "r/r070.mp3": 0.7,
+    "q/q49a-dede.mp3": 1.2,
+    "q/q49a-gamze.mp3": 1.2,
+    "r/r071.mp3": 0.8,
+    "r/r072.mp3": 0.9,
+    "q/q50a-teyze.mp3": 1.2,
+    "q/q50a-gamze.mp3": 1.3,
+    "r/r073.mp3": 1.2,
+    "r/r074.mp3": 1.1,
+    "q/q51a-teyze.mp3": 1.8,
+    "q/q51a-dede.mp3": 1.8,
+    "r/r075.mp3": 1.4,
+    "q/q52a-teyze.mp3": 2.0,
+    "q/q52a-dede.mp3": 2.1,
+    "r/r076.mp3": 1.4,
+    "q/q53a-teyze.mp3": 1.3,
+    "q/q53a-dede.mp3": 1.2,
+    "q/q53b-teyze.mp3": 1.3,
+    "q/q53b-dede.mp3": 1.3,
+    "r/r077.mp3": 1.6,
+    "r/r078.mp3": 1.8,
+    "q/q54a-teyze.mp3": 1.4,
+    "q/q54a-dede.mp3": 1.4,
+    "r/r079.mp3": 1.5,
+    "q/q55a-teyze.mp3": 1.8,
+    "q/q55a-dede.mp3": 1.9,
+    "r/r080.mp3": 1.6,
+    "q/q56a-teyze.mp3": 1.8,
+    "q/q56a-dede.mp3": 1.8,
+    "r/r081.mp3": 0.8,
+    "q/q57a-teyze.mp3": 1.4,
+    "q/q57a-dede.mp3": 1.3,
+    "r/r082.mp3": 1.1,
+    "q/q58a-teyze.mp3": 1.8,
+    "q/q58a-dede.mp3": 1.8,
+    "q/q59a-dede.mp3": 0.9,
+    "q/q59a-mark.mp3": 0.9,
+    "r/r083.mp3": 0.9,
+    "q/q60a-teyze.mp3": 1.6,
+    "q/q60a-mark.mp3": 1.2,
+    "r/r084.mp3": 0.9,
+    "q/q61a-dede.mp3": 1.3,
+    "q/q61a-gamze.mp3": 1.3,
+    "r/r085.mp3": 1.0,
+    "q/q62a-teyze.mp3": 1.9,
+    "q/q62a-gamze.mp3": 1.3,
+    "r/r086.mp3": 1.6,
+    "q/q63a-dede.mp3": 0.9,
+    "q/q63a-mark.mp3": 1.0,
+    "r/r087.mp3": 0.9,
+    "q/q64a-teyze.mp3": 1.8,
+    "q/q64a-mark.mp3": 1.3,
+    "r/r088.mp3": 1.1,
+    "q/q65a-dede.mp3": 1.2,
+    "q/q65a-gamze.mp3": 1.3,
+    "r/r089.mp3": 1.3,
+    "q/q66a-teyze.mp3": 1.8,
+    "q/q66a-gamze.mp3": 1.5,
+    "r/r090.mp3": 0.8,
+    "baba/B1.mp3": 2.2,
+    "r/r091.mp3": 0.9,
+    "baba/B2.mp3": 1.8,
+    "baba/B3.mp3": 1.8,
+    "baba/B4.mp3": 1.9,
+    "baba/B5.mp3": 1.7,
+    "baba/B6.mp3": 1.3,
+    "baba/B7.mp3": 1.2,
+    "baba/B8.mp3": 2.1,
+    "baba/B9.mp3": 1.0,
+    "baba/B10.mp3": 2.2,
+    "baba/B11.mp3": 1.4,
+    "baba/B12.mp3": 1.9,
+    "baba/B13.mp3": 4.0,
+    "baba/B14.mp3": 4.8,
+    "baba/B15.mp3": 1.4,
+    "r/r092.mp3": 2.2,
+    "baba/B16.mp3": 1.3,
+    "r/r093.mp3": 0.9,
+    "narr/N1.mp3": 4.4,
+    "narr/N2.mp3": 3.0,
+    "narr/N3.mp3": 4.1,
+    "narr/N4.mp3": 2.8,
+    "narr/PA1.mp3": 5.4,
+    "narr/UI1.mp3": 1.7
+  }
+}

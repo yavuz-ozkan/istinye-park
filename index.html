@@ -1,0 +1,1295 @@
+<title>İstinye Park</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Josefin+Sans:wght@300;600&display=swap">
+<style>
+/* Layout: the 3D mall fills the screen; play UI floats over it as marble cards with brass trim. */
+:root{
+  --night:#0d1832; --veil:rgba(13,24,50,.72); --marble:#f4f6fa; --ink:#15223f; --mute:#5f6b86;
+  --brass:#c8a04a; --brass-ink:#4a370c; --baba:#e2464c; --ok:#2c9a61; --line:#d3dae6; --glass:rgba(244,246,250,.9);
+  --font-sign:'Josefin Sans','Avenir Next','Segoe UI',sans-serif;
+  --font-ui:'Baloo 2','Trebuchet MS','Segoe UI',sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--night);color:var(--ink);font-family:var(--font-ui);font-size:16px;line-height:1.3;overflow:hidden;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+#view{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:none}
+.layer{position:fixed;inset:0;pointer-events:none;display:flex;flex-direction:column;
+  padding-top:calc(env(safe-area-inset-top,0px) + 12px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 12px);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button{font:inherit;color:inherit;cursor:pointer;border:0;touch-action:manipulation}
+button:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+
+/* full screens: title, intro, win */
+.screen{align-items:center;justify-content:center;gap:22px;text-align:center;background:var(--veil);pointer-events:auto;color:var(--marble)}
+.sign{font-family:var(--font-sign);font-weight:300;letter-spacing:.3em;text-indent:.3em;font-size:clamp(2.2rem,11vw,5.6rem);line-height:1.08;
+  padding:.35em 0;border-top:1px solid var(--brass);border-bottom:1px solid var(--brass);display:flex;flex-direction:column}
+.tag{font-weight:700;color:var(--brass);letter-spacing:.14em;font-size:clamp(1rem,3.4vw,1.4rem)}
+.big{background:var(--brass);color:var(--brass-ink);font-weight:700;font-size:1.35rem;min-height:60px;padding:10px 34px;border-radius:999px;
+  box-shadow:0 4px 0 var(--brass-ink)}
+.big:active{transform:translateY(3px);box-shadow:0 1px 0 var(--brass-ink)}
+.big small{font-weight:500;opacity:.75;font-size:.8em}
+.how{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:center;font-size:.98rem;color:var(--marble);opacity:.86;max-width:44rem}
+.note{font-size:.85rem;color:var(--marble);opacity:.6;min-height:1.2em}
+.story{display:flex;flex-direction:column;gap:14px;max-width:36rem;font-size:clamp(1.15rem,4.2vw,1.7rem);font-weight:500;text-wrap:balance}
+.story p{margin:0;opacity:.28;transition:opacity .6s}
+.story p.on{opacity:1}
+.story p:last-child{color:var(--brass);font-weight:700}
+.wincard{background:var(--marble);color:var(--ink);border-radius:22px;padding:22px 26px;max-width:30rem;display:flex;flex-direction:column;gap:8px;border:2px solid var(--brass)}
+.wincard b{font-size:1.5rem}
+.who{font-size:.8rem;font-weight:700;letter-spacing:.12em;color:var(--baba)}
+
+/* HUD */
+#hud{gap:8px}
+.toprow{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+#items{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0;max-width:70%}
+#items li{background:var(--glass);border-radius:14px;padding:2px 9px 2px 6px;display:flex;align-items:center;gap:5px;font-size:.82rem;font-weight:700;
+  opacity:.68;border:2px solid transparent}
+#items li span{font-size:1.25rem;filter:grayscale(1)}
+#items li.got{opacity:1;border-color:var(--ok)}
+#items li.got span{filter:none}
+.right{display:flex;gap:8px;align-items:center}
+#danger{background:var(--glass);border-radius:999px;padding:5px 10px;display:flex;align-items:center;gap:7px;font-weight:700;font-size:.82rem}
+#danger i{display:block;width:74px;height:9px;border-radius:9px;background:var(--line);overflow:hidden}
+#danger i b{display:block;height:100%;width:0;background:var(--brass)}
+#danger.near i b{background:var(--baba)}
+#danger.near{color:var(--baba)}
+#mute{pointer-events:auto;background:var(--glass);border-radius:999px;width:40px;height:40px;font-size:1.1rem}
+#caption{align-self:center;background:var(--baba);color:var(--marble);font-weight:700;font-size:clamp(1.05rem,3.6vw,1.5rem);padding:6px 18px;border-radius:16px;
+  max-width:92%;text-align:center;box-shadow:0 3px 0 rgba(0,0,0,.25)}
+#caption small{display:block;font-size:.62em;letter-spacing:.14em;opacity:.85}
+#banner{align-self:center;background:var(--marble);border:2px solid var(--brass);border-radius:14px;padding:8px 16px;font-weight:700;max-width:34rem;text-align:center}
+#arrow{align-self:center;background:var(--ok);color:var(--marble);font-weight:700;border-radius:999px;padding:6px 16px;display:flex;align-items:center;gap:10px}
+#arrow i{display:inline-block;font-style:normal;font-size:1.5rem;line-height:1}
+#toast{align-self:center;margin-top:auto;margin-bottom:18vh;background:var(--glass);border-radius:14px;padding:8px 18px;font-weight:700;font-size:1.1rem}
+
+/* joystick */
+#stick{position:fixed;width:124px;height:124px;margin:-62px 0 0 -62px;border-radius:50%;border:3px solid var(--glass);background:rgba(244,246,250,.16);pointer-events:none}
+#stick b{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:var(--glass)}
+
+/* conversation */
+#talk{justify-content:flex-end;align-items:center}
+.card{pointer-events:auto;width:100%;max-width:46rem;background:var(--marble);border:2px solid var(--brass);border-radius:22px;padding:14px 16px 16px;
+  display:flex;flex-direction:column;gap:10px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.cardhead{display:flex;align-items:center;gap:10px;min-width:0}
+.cardhead .name{font-weight:700;font-size:.95rem;color:var(--mute);min-width:0;overflow-wrap:anywhere}
+.dots{display:flex;gap:5px;margin-left:auto}
+.dots i{width:12px;height:12px;border-radius:50%;background:var(--line)}
+.dots i.ok{background:var(--ok)} .dots i.no{background:var(--baba)} .dots i.now{outline:2px solid var(--brass);outline-offset:1px}
+#run{background:var(--baba);color:var(--marble);font-weight:700;border-radius:999px;padding:6px 14px;min-height:40px}
+#ask{font-size:clamp(1.4rem,5.4vw,2.1rem);font-weight:700;margin:0;text-wrap:balance}
+#again{align-self:flex-start;background:transparent;border:2px solid var(--line);border-radius:999px;padding:5px 14px;font-weight:700;color:var(--mute);min-height:40px}
+#replies{display:flex;flex-direction:column;gap:8px}
+.reply{display:flex;gap:8px;min-width:0}
+.reply .hear{flex:none;width:54px;border-radius:16px;background:var(--line);font-size:1.3rem}
+.reply .say{flex:1;min-width:0;text-align:left;background:var(--ink);color:var(--marble);border-radius:16px;padding:10px 16px;min-height:56px;
+  font-size:clamp(1.05rem,4vw,1.4rem);font-weight:700;overflow-wrap:anywhere}
+.reply .say.ok{background:var(--ok)} .reply .say.no{background:var(--baba)}
+.reply button:disabled{cursor:default}
+.reply .say:disabled:not(.ok):not(.no){opacity:.45}
+#result{display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center;font-size:1.3rem;font-weight:700}
+#result .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+#flash{position:fixed;inset:0;background:var(--night);opacity:0;pointer-events:none;transition:opacity .25s}
+#flash.on{opacity:.55}
+@media (prefers-reduced-motion:reduce){.story p{transition:none}#flash{transition:none}}
+</style>
+
+<canvas id="view" tabindex="0" aria-label="İstinye Park oyunu"></canvas>
+
+<div id="hud" class="layer" hidden>
+  <div class="toprow">
+    <ul id="items" aria-label="Liste"></ul>
+    <div class="right">
+      <div id="danger" title="Baba ne kadar yakın">👞 <i><b></b></i></div>
+      <button id="mute" aria-label="Sesi aç/kapat">🔊</button>
+    </div>
+  </div>
+  <div id="caption" hidden><small>BABA</small><span></span></div>
+  <div id="banner" hidden></div>
+  <div id="arrow" hidden><i>⬆</i> Çıkışa koş!</div>
+  <div id="toast" hidden></div>
+</div>
+<div id="stick" hidden><b></b></div>
+
+<div id="talk" class="layer" hidden>
+  <div class="card">
+    <div class="cardhead">
+      <span class="name" id="who"></span>
+      <span class="dots" id="dots"><i></i><i></i><i></i></span>
+      <button id="run">Kaç! 🏃</button>
+    </div>
+    <div id="line">
+      <p id="ask"></p>
+    </div>
+    <button id="again">🔁 Tekrar söyler misin?</button>
+    <div id="replies"></div>
+    <div id="result" hidden>
+      <div id="resulttext"></div>
+      <div class="row">
+        <button class="big" id="retry">Tekrar dene <small>· Try again</small></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="title" class="layer screen">
+  <div class="sign"><span>İSTİNYE</span><span>PARK</span></div>
+  <div class="tag">BABA GELİYOR!</div>
+  <button class="big" id="play">Oyna <small>· Play</small></button>
+  <div class="how">
+    <span>iPad: sol parmak yürür, sağ parmak bakar</span>
+    <span>Laptop: W A S D + fare</span>
+  </div>
+  <div class="note" id="title-note"></div>
+</div>
+
+<div id="intro" class="layer screen" hidden>
+  <div class="story" id="story"></div>
+  <button class="big" id="skip">Geç <small>· Skip</small></button>
+</div>
+
+<div id="win" class="layer screen" hidden>
+  <div class="sign"><span>KAZANDIN!</span></div>
+  <div class="wincard">
+    <span class="who">BABA</span>
+    <b>Tamam, sen kazandın. Hadi eve gidelim.</b>
+  </div>
+  <button class="big" id="replay">Tekrar oyna <small>· Play again</small></button>
+</div>
+<div id="flash"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- Every recorded voice clip in one file (made by tools/pack-audio.ps1). The game still runs without it. -->
+<script src="audio-pack.js"></script>
+<script>
+(function () {
+'use strict';
+const $ = id => document.getElementById(id);
+if (!window.THREE) { $('title-note').textContent = '3D kitaplığı yüklenemedi. Sayfayı yenile.'; return; }
+
+/* =====================================================================
+   DATA: everything Baba or Noah will want to change lives up here.
+   ===================================================================== */
+
+// Starter phrases, copied from phrases.md (row = its row number there).
+// kind: greet = first line, mid = second line, bye = third line.
+// fam: replies inside one family are never used as each other's wrong choices.
+// Clip ids: question = q<row><a|b|c>, reply = r<row><a|b>. Pre-made mp3s plug in by these ids.
+let EXCHANGES = [
+  { row: 1,  kind: 'greet', fam: 'hello',  asks: ['Merhaba!', 'Selam!'],                  replies: ['Merhaba!'] },
+  { row: 2,  kind: 'greet', fam: 'hello',  asks: ['Günaydın!'],                           replies: ['Günaydın!'] },
+  { row: 4,  kind: 'greet', fam: 'hello',  asks: ['Hoş geldin!'],                         replies: ['Hoş bulduk!'] },
+  { row: 5,  kind: 'greet', fam: 'how',    asks: ['Nasılsın?', 'Naber?', 'İyi misin?'],   replies: ['İyiyim, teşekkürler. Sen nasılsın?', 'İyiyim, sağ ol.'] },
+  { row: 7,  kind: 'mid',   fam: 'name',   asks: ['Adın ne?', 'İsmin ne?'],               replies: ['Adım Noah.', 'Benim adım Noah.'] },
+  { row: 8,  kind: 'mid',   fam: 'age',    asks: ['Kaç yaşındasın?'],                     replies: ['Yedi yaşındayım.'] },
+  { row: 9,  kind: 'mid',   fam: 'home',   asks: ['Nerede yaşıyorsun?'],                  replies: ['San Diego\'da yaşıyorum.'] },
+  { row: 10, kind: 'mid',   fam: 'grade',  asks: ['Kaçıncı sınıfa gidiyorsun?'],          replies: ['İkinci sınıfa gidiyorum.'] },
+  { row: 11, kind: 'mid',   fam: 'sister', asks: ['Kardeşin var mı?'],                    replies: ['Evet, bir kız kardeşim var.'] },
+  { row: 13, kind: 'mid',   fam: 'know',   asks: ['Türkçe biliyor musun?'],               replies: ['Evet, biraz biliyorum.'] },
+  { row: 15, kind: 'mid',   fam: 'with',   asks: ['Kiminle geldin?'],                     replies: ['Babamla geldim.'] },
+  { row: 16, kind: 'mid',   fam: 'food',   asks: ['Aç mısın?', 'Acıktın mı?'],            replies: ['Evet, açım.', 'Hayır, tokum.'] },
+  { row: 17, kind: 'mid',   fam: 'food',   asks: ['Susadın mı?'],                         replies: ['Evet, susadım.', 'Hayır, susamadım.'] },
+  { row: 18, kind: 'mid',   fam: 'food',   asks: ['Ne istersin?', 'Ne istiyorsun?'],      replies: ['Dondurma istiyorum, lütfen.', 'Su istiyorum.'] },
+  { row: 21, kind: 'mid',   fam: 'like',   asks: ['Beğendin mi?', 'Güzel mi?'],           replies: ['Evet, çok güzel!', 'Çok beğendim.'] },
+  { row: 23, kind: 'mid',   fam: 'food',   asks: ['Dondurma sever misin?'],               replies: ['Evet, çok severim!'] },
+  { row: 28, kind: 'mid',   fam: 'polite', asks: ['Özür dilerim.', 'Pardon.'],            replies: ['Önemli değil.', 'Sorun değil.'] },
+  { row: 29, kind: 'mid',   fam: 'sneeze', asks: ['Çok yaşa!'],                           replies: ['Sen de gör!'] },
+  { row: 33, kind: 'mid',   fam: 'know',   asks: ['Anladın mı?'],                         replies: ['Evet, anladım.', 'Hayır, anlamadım.'] },
+  { row: 35, kind: 'mid',   fam: 'tired',  asks: ['Yoruldun mu?'],                        replies: ['Evet, çok yoruldum.', 'Hayır, yorulmadım.'] },
+  { row: 41, kind: 'mid',   fam: 'fun',    asks: ['Eğlendin mi?'],                        replies: ['Evet, çok eğlendim!'] },
+  { row: 43, kind: 'mid',   fam: 'doing',  asks: ['Ne yapıyorsun?'],                      replies: ['Oyun oynuyorum.'] },
+  { row: 46, kind: 'mid',   fam: 'color',  asks: ['En sevdiğin renk ne?'],                replies: ['Yeşil.', 'En sevdiğim renk yeşil.'] },
+  { row: 47, kind: 'mid',   fam: 'food',   asks: ['En sevdiğin yemek ne?'],               replies: ['Çikolata.', 'En sevdiğim yemek çikolata.'] },
+  { row: 49, kind: 'mid',   fam: 'ready',  asks: ['Hazır mısın?'],                        replies: ['Hazırım!', 'Daha değil.'] },
+  { row: 26, kind: 'bye',   fam: 'polite', asks: ['Teşekkür ederim.', 'Sağ ol.'],         replies: ['Rica ederim.', 'Bir şey değil.'] },
+  { row: 60, kind: 'bye',   fam: 'bye',    asks: ['Güle güle!'],                          replies: ['Hoşça kal!'] },
+  { row: 61, kind: 'bye',   fam: 'bye',    asks: ['Görüşürüz!'],                          replies: ['Görüşürüz!'] },
+  { row: 63, kind: 'bye',   fam: 'bye',    asks: ['İyi günler!'],                         replies: ['İyi günler!'] },
+  { row: 65, kind: 'bye',   fam: 'again',  asks: ['Yine gel!'],                           replies: ['Tamam, gelirim.'] },
+];
+// Replies that could pass as an answer to too many questions, so they are never offered as a wrong choice.
+const NEVER_WRONG_CHOICE = new Set(['Daha değil.', 'Hayır, anlamadım.', 'Evet, çok güzel!', 'Çok beğendim.', 'Tamam, gelirim.', 'İyi günler!',
+  'İyi geceler!', 'Teşekkürler.', 'Teşekkür ederim.', 'Tamam.', 'Tamam!', 'Tabii!', 'Olur!', 'Evet, lütfen.', 'Hayır, teşekkürler.',
+  'Hayır, teşekkürler. Doydum.', 'İyi, teşekkürler.', 'Çok iyi.', 'Sana da.']);
+
+// Recorded voices. When audio-pack.js is loaded, the list above is replaced by every row of audio/lines.json,
+// so adding a row there (then running tools/make-audio.ps1 and tools/pack-audio.ps1) adds it to the game.
+// ROW_KIND: where a row may sit in a conversation. Rows not listed are 'mid'. 'later' rows wait for a family character.
+// ROW_FAM: rows whose replies could pass for each other, so they are never each other's wrong choices.
+const PACK = window.IP_AUDIO || null;
+const ROW_KIND = { greet: [1, 2, 3, 4, 5, 6], bye: [26, 59, 60, 61, 62, 63, 64, 65, 66], later: [51, 52, 56] };
+const ROW_FAM = {
+  hello: [1, 2, 3, 4], how: [5, 6, 38, 45, 53], know: [13, 33], food: [16, 17, 18, 19, 20, 23, 24, 25, 47],
+  polite: [22, 26, 27, 28, 30, 58], agree: [31, 32, 48, 54], doing: [43, 50], bye: [59, 60, 61, 62, 63, 64, 65, 66],
+};
+if (PACK) {
+  const kindOf = {}, famOf = {};
+  for (const k in ROW_KIND) ROW_KIND[k].forEach(n => { kindOf[n] = k; });
+  for (const f in ROW_FAM) ROW_FAM[f].forEach(n => { famOf[n] = f; });
+  EXCHANGES = PACK.manifest.rows.filter(r => kindOf[r.n] !== 'later').map(r => ({
+    row: r.n, kind: kindOf[r.n] || 'mid', fam: famOf[r.n] || 'row' + r.n,
+    asks: r.prompts.map(p => p.text), replies: r.replies.map(x => x.text),
+    prompts: r.prompts, replyClips: r.replies.map(x => x.file),
+  }));
+}
+// What Grandma calls him. Characters marked elder drop one into about half their questions: "Nasılsın yavrum?"
+// The clip id for those gets _p1, _p2 or _p3 on the end (q5a_p1 = "Nasılsın yavrum?").
+const PET_NAMES = ['yavrum', 'canım', 'bir tanem'];
+
+// Placeholder characters. Noah will invent the real ones: change name, shape, color, item here.
+// cell = [column, row] of the shop alcove on the map below.
+// voice = which recorded voice the character speaks with: teyze (auntie), dede (old man), mark or gamze (cartoon).
+// teyze and dede are the elders: their recordings carry the pet names.
+const KEEPERS = [
+  { id: 'k1', cell: [10, 1],  name: 'Küp',      shape: 'cube',    color: 0xe4572e, item: { emoji: '⚽', tr: 'top' }, voice: 'mark' },
+  { id: 'k2', cell: [18, 1],  name: 'Top',      shape: 'ball',    color: 0x2e86de, item: { emoji: '🍦', tr: 'dondurma' }, elder: true, voice: 'teyze' },
+  { id: 'k3', cell: [23, 5],  name: 'Koni',     shape: 'cone',    color: 0xf2b705, item: { emoji: '🎈', tr: 'balon' }, voice: 'gamze' },
+  { id: 'k4', cell: [23, 12], name: 'Silindir', shape: 'cyl',     color: 0x8e5bd9, item: { emoji: '📚', tr: 'kitap' }, elder: true, voice: 'dede' },
+  { id: 'k5', cell: [6, 12],  name: 'Yumurta',  shape: 'egg',     color: 0x21b08c, item: { emoji: '🧸', tr: 'ayıcık' }, elder: true, voice: 'teyze' },
+  { id: 'k6', cell: [10, 8],  name: 'Piramit',  shape: 'pyramid', color: 0xff7eb6, item: { emoji: '🍿', tr: 'patlamış mısır' }, voice: 'mark' },
+  { id: 'k7', cell: [18, 10], name: 'Halka',    shape: 'donut',   color: 0xd98e3a, item: { emoji: '🍭', tr: 'şeker' }, voice: 'gamze' },
+];
+
+// Baba's lines (B1 to B14 in phrases.md). The id is the clip id for Baba's own recordings.
+const BABA = {
+  B1: 'Noah! Neredesin?', B2: 'Hadi, eve gidiyoruz!', B3: 'Son beş dakika!', B4: 'Geç oldu!',
+  B5: 'Seni duyuyorum!', B6: 'Seni gördüm!', B7: 'Gel buraya!', B8: 'Kaçamazsın!', B9: 'Dur!',
+  B10: 'Hadi oğlum!', B11: 'Gel lan buraya!', B12: 'Yakaladım!', B13: 'Of, yoruldum...',
+  B14: 'Tamam, sen kazandın. Hadi eve gidelim.',
+};
+const NARRATION = [
+  'Burası İstinye Park. Saat geç oldu, mağazalar kapanıyor.',
+  'Baba "Hadi, eve gidiyoruz!" diyor.',
+  'Ama Noah\'nın işi bitmedi. Yedi şey bulması lazım.',
+  'Dikkat et Noah... Baba geliyor!',
+];
+const CLOSING = 'Sayın ziyaretçilerimiz, alışveriş merkezimiz kapanmıştır. İyi geceler dileriz.';
+
+// Extra audio files by clip id, if ever needed: { B12: 'my-own-B12.mp3' }. These win over the packed voices,
+// so Baba can drop in his own recordings here. Anything with no clip at all falls back to the browser's Turkish voice.
+const CLIP_URLS = {};
+// Short clip ids used in the code, and the packed file each one means. Baba's B1..B16 and the narrator's N1..N4 map by name.
+const CLIP_ALIAS = { n_close: 'narr/PA1.mp3', ui_again: 'narr/UI1.mp3' };
+
+// Made-up shop signs for the shuttered fronts. Plain words, no real brands.
+const SHOP_SIGNS = [
+  ['OYUNCAK', '#d1495b'], ['KİTAP', '#2e6f95'], ['ŞEKER', '#c7417b'], ['AYAKKABI', '#3d405b'], ['SAAT', '#7a5c2e'],
+  ['ÇANTA', '#5a3e85'], ['GÖZLÜK', '#1f7a6d'], ['ŞAPKA', '#b5651d'], ['ÇİÇEK', '#3a7d44'], ['KAHVE', '#5c3d2e'],
+];
+
+// The mall. # wall, . corridor, D dome hall, P play area, 1-7 shop alcoves, E exit doors.
+const MAP = [
+  '#########################',
+  '#PPPPP####1#######2######',
+  '#PPPPP.................##',
+  '#PPPPP#.######.#######.##',
+  '#PPPPP#.######.#######.##',
+  '#PPPPP#.######.#######.3#',
+  '#PPPPP..######.#######.##',
+  '#PPPPP#.######.#######.##',
+  '#######.##6###.#######.##',
+  '#######................##',
+  '#######.######.###7###.##',
+  '#######.######.#######.##',
+  '######5.####DDDDD#####.4#',
+  '#######.###DDDDDDD####.##',
+  '#######.###DDDDDDD####.##',
+  '#######....DDDDDDD.....##',
+  '###########DDDDDDD#######',
+  '###########DDDDDDD#######',
+  '############DDDDD########',
+  '#############EEE#########',
+  '#########################',
+];
+const CELL = 6, WALL_H = 7, COLS = MAP[0].length, ROWS = MAP.length;
+const DOME = { x: 14.5 * CELL, z: 15.5 * CELL };
+const EXIT = { x: 14.5 * CELL, z: 19.5 * CELL };
+// Where Baba appears. The first is the start of a game: straight up the corridor from the dome, in plain sight.
+// After a catch he restarts at whichever of these is farthest from Noah.
+const BABA_SPAWNS = [[14, 6], [22, 2], [7, 2]];
+
+// People wandering the mall. They are just company: they walk the corridors and say hello as Noah passes.
+// voice = whose recordings they use. cell = where they start.
+const WALKERS = [
+  { name: 'Temizlikçi', emoji: '🧹', color: 0x4aa3a2, voice: 'mark',  speed: 2.6, cell: [7, 4] },
+  { name: 'Baloncu',    emoji: '🎈', color: 0xe86a92, voice: 'gamze', speed: 3.0, cell: [22, 7], propY: 3.1 },
+  { name: 'Robot',      emoji: '📦', color: 0x8d99ae, voice: 'mark',  speed: 3.6, cell: [10, 9], robot: true },
+  { name: 'Teyze',      emoji: '🛍️', color: 0x9b5de5, voice: 'teyze', speed: 2.2, cell: [18, 9] },
+  { name: 'Amca',       emoji: '☕', color: 0x6b705c, voice: 'dede',  speed: 2.0, cell: [7, 13] },
+];
+// Rows of the phrase list they greet with: hello, good evening, excuse me, bye, see you, good day.
+const WALKER_ROWS = [1, 3, 28, 60, 61, 63];
+
+// Feel. Speeds are metres per second.
+const NOAH_SPEED = 8, EYE = 1.25, NOAH_R = 0.9;
+const BABA_START = 4.4, BABA_STEP = 0.5, BABA_TOP = 7.4, BABA_MIN = 3.8, BABA_MERCY = 0.4;
+const TALK_RANGE = 4.0, CATCH_RANGE = 1.7;
+
+/* =====================================================================
+   Small helpers
+   ===================================================================== */
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const rand = (a, b) => a + Math.random() * (b - a);
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+function seeded(seed) { let a = seed >>> 0; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const cellChar = (c, r) => (r < 0 || r >= ROWS || c < 0 || c >= COLS) ? '#' : MAP[r][c];
+const cellOf = p => ({ c: Math.floor(p.x / CELL), r: Math.floor(p.z / CELL) });
+const centre = (c, r) => ({ x: (c + 0.5) * CELL, z: (r + 0.5) * CELL });
+
+/* =====================================================================
+   State
+   ===================================================================== */
+const S = { mode: 'title', t: 0, items: new Set(), exitOpen: false, doorK: 0, conv: null, miss: {}, recent: [], muted: false,
+            playT: 0, saidB3: false, bannerT: 0, toastT: 0, captionT: 0, carry: null, hudArrow: false };
+const P = { x: DOME.x, z: DOME.z, y: 0, vy: 0, yaw: 0, pitch: 0, grip: 5, inPit: false };
+const B = { x: 0, z: 0, yaw: 0, speed: BABA_START, grace: 5, phase: 0, stepT: 0, los: false, losT: 0, lineCd: 4, closeChase: false,
+            planT: 0, moving: false, foot: 0 };
+const solid = (c, r) => { const ch = cellChar(c, r); return ch === '#' || (ch === 'E' && !S.exitOpen); };
+
+/* =====================================================================
+   Sound: stand-in voice, clip slots, squeaky shoes
+   ===================================================================== */
+let AC = null, master = null;
+const tts = { state: 'unknown', voice: null };
+function findVoice() {
+  try {
+    if (!('speechSynthesis' in window)) { tts.state = 'none'; return; }
+    const vs = speechSynthesis.getVoices();
+    const v = vs.find(v => /^tr/i.test(v.lang));
+    if (v) { tts.voice = v; tts.state = 'tr'; }
+    else tts.state = vs.length ? 'none' : 'maybe';   // 'maybe': list not loaded yet (iPad often reports it late)
+  } catch (e) { tts.state = 'none'; }
+  $('title-note').textContent = PACK ? '' : tts.state === 'none' ? 'Bu cihazda Türkçe ses yok: şimdilik yalnız yazı.' : 'Sesler şimdilik bilgisayar sesi. Gerçek sesler sonra.';
+}
+findVoice();
+try { speechSynthesis.addEventListener('voiceschanged', findVoice); } catch (e) {}
+
+let currentAudio = null, currentSrc = null, speakSeq = 0, ttsUsed = false;
+// Some browsers put the sound output to sleep (after a pause, a tab switch, an incoming call). Wake it whenever we need it.
+function wakeAudio() { if (AC && AC.state !== 'running') { try { const p = AC.resume(); if (p && p.catch) p.catch(() => {}); } catch (e) {} } }
+function stopSpeech() {
+  speakSeq++;
+  if (ttsUsed) { try { speechSynthesis.cancel(); } catch (e) {} }   // the browser voice is left alone unless we really used it
+  if (currentAudio) { try { currentAudio.pause(); } catch (e) {} currentAudio = null; }
+  if (currentSrc) { try { currentSrc.onended = null; currentSrc.stop(); } catch (e) {} currentSrc = null; }
+}
+// Which packed clip a clip id means, or null when there is none.
+function clipKey(id) {
+  if (!PACK || !id) return null;
+  const k = CLIP_ALIAS[id] || (/^B\d+$/.test(id) ? 'baba/' + id + '.mp3' : /^N\d+$/.test(id) ? 'narr/' + id + '.mp3' : id);
+  return PACK.data[k] ? k : null;
+}
+// Packed clips are decoded when first needed. Played through the game's own audio output, which the iPad
+// allows at any moment once Noah has tapped Play (a plain audio tag would be blocked when Baba shouts mid-chase).
+const decoded = new Map();
+function clipBuffer(key) {
+  if (decoded.has(key)) return decoded.get(key);
+  const bin = atob(PACK.data[key]), bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  const p = new Promise((res, rej) => { try { const r = AC.decodeAudioData(bytes.buffer, res, rej); if (r && r.catch) r.catch(rej); } catch (e) { rej(e); } });
+  if (key.indexOf('baba/') === 0 || decoded.size < 80) decoded.set(key, p);
+  return p;
+}
+// Say one line. Plays the recorded clip if there is one, else the stand-in voice, else nothing. Resolves when done.
+// opt.gain and opt.pan place a recorded clip (Baba sounds quieter when he is far away).
+function speak(text, clipId, opt) {
+  opt = opt || {};
+  return new Promise(resolve => {
+    let done = false;
+    const finish = () => { if (!done) { done = true; resolve(); } };
+    const guard = setTimeout(finish, Math.max(1400, text.length * 95));
+    const end = () => { clearTimeout(guard); finish(); };
+    if (S.muted) { clearTimeout(guard); setTimeout(finish, 500); return; }
+    stopSpeech();
+    const url = CLIP_URLS[clipId];
+    if (url) {
+      try { const a = new Audio(url); currentAudio = a; a.onended = end; a.onerror = end; a.play().catch(end); return; } catch (e) {}
+    }
+    const key = clipKey(clipId);
+    if (key && AC) {
+      clearTimeout(guard);
+      wakeAudio();
+      const secs = (PACK.manifest.seconds && PACK.manifest.seconds[key]) || 3;
+      const guard2 = setTimeout(finish, secs * 1000 + 900), my = speakSeq;
+      const done2 = () => { clearTimeout(guard2); finish(); };
+      // If the game's own output cannot play the clip, try a plain audio tag before giving up.
+      const plainTag = () => { try { const a = new Audio('data:audio/mpeg;base64,' + PACK.data[key]); a.volume = clamp(opt.gain == null ? 1 : opt.gain, 0, 1); currentAudio = a; a.onended = done2; a.onerror = done2; a.play().catch(done2); } catch (e) { done2(); } };
+      clipBuffer(key).then(buf => {
+        if (my !== speakSeq) return;                                  // a newer line started, or speech was stopped
+        try {
+          const src = AC.createBufferSource(), g = AC.createGain(); src.buffer = buf;
+          g.gain.value = opt.gain == null ? 1 : opt.gain;
+          let out = g;
+          if (opt.pan && isFinite(opt.pan) && AC.createStereoPanner) { const pn = AC.createStereoPanner(); pn.pan.value = clamp(opt.pan, -1, 1); g.connect(pn); out = pn; }
+          src.connect(g); out.connect(master);
+          src.onended = () => { if (currentSrc === src) currentSrc = null; done2(); };
+          currentSrc = src; src.start();
+        } catch (e) { console.warn('[istinye] clip would not start', key, e); plainTag(); }
+      }).catch(e => { console.warn('[istinye] clip would not decode', key, e); decoded.delete(key); if (my === speakSeq) plainTag(); else done2(); });
+      return;
+    }
+    ttsUsed = true;
+    if (tts.state === 'none' || !('speechSynthesis' in window)) { clearTimeout(guard); setTimeout(finish, 450); return; }
+    try {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'tr-TR'; if (tts.voice) u.voice = tts.voice;
+      u.rate = opt.rate || 0.88; u.pitch = opt.pitch || 1.05;
+      u.onend = end; u.onerror = end;
+      speechSynthesis.speak(u);
+    } catch (e) { end(); }
+  });
+}
+function initAudio() {
+  if (AC) { wakeAudio(); return; }
+  // On an iPad or iPhone, ask for game-style sound so the voices still play when the device is set to silent.
+  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (e) {}
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    AC = new Ctx(); master = AC.createGain(); master.gain.value = S.muted ? 0 : 1; master.connect(AC.destination);
+    wakeAudio();
+  } catch (e) { AC = null; }
+  // Only for the stand-in browser voice: iPad lets speech start only from a tap, so prime it with a silent word.
+  // With the recorded voices loaded the browser voice is never touched, since on some devices it takes over the sound output.
+  if (!PACK) { try { ttsUsed = true; const u = new SpeechSynthesisUtterance(' '); u.volume = 0; u.lang = 'tr-TR'; speechSynthesis.speak(u); } catch (e) {} }
+}
+// A short recorded line from someone passing by. It never interrupts Baba or a conversation.
+function ambient(key, gain) {
+  if (!PACK || !AC || S.muted || !key || !PACK.data[key]) return;
+  wakeAudio();
+  clipBuffer(key).then(buf => {
+    if (S.conv || S.mode !== 'play') return;
+    const src = AC.createBufferSource(), g = AC.createGain(); src.buffer = buf; g.gain.value = gain; src.connect(g); g.connect(master); src.start();
+  }).catch(() => {});
+}
+// One squeak of a dress shoe on marble.
+function squeak(vol, pan, high) {
+  if (!AC || S.muted || vol <= 0.001) return;
+  const t = AC.currentTime, dur = 0.13;
+  const g = AC.createGain();
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  let out = g;
+  if (AC.createStereoPanner) { const p = AC.createStereoPanner(); p.pan.value = clamp(pan, -1, 1); g.connect(p); out = p; }
+  out.connect(master);
+  const f0 = high ? 1350 : 1150, f1 = high ? 2650 : 2250;
+  [1, 2.02].forEach((mult, i) => {
+    const o = AC.createOscillator(); o.type = i ? 'sine' : 'triangle';
+    o.frequency.setValueAtTime(f0 * mult, t); o.frequency.exponentialRampToValueAtTime(f1 * mult, t + 0.06); o.frequency.exponentialRampToValueAtTime(f0 * 1.25 * mult, t + dur);
+    const og = AC.createGain(); og.gain.value = i ? 0.35 : 1; o.connect(og); og.connect(g);
+    o.start(t); o.stop(t + dur + 0.02);
+  });
+}
+function boing() {
+  if (!AC || S.muted) return;
+  const t = AC.currentTime, o = AC.createOscillator(), g = AC.createGain(); o.type = 'sine';
+  o.frequency.setValueAtTime(180, t); o.frequency.exponentialRampToValueAtTime(520, t + 0.18);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.16, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.3);
+  o.connect(g); g.connect(master); o.start(t); o.stop(t + 0.32);
+}
+function chime(ok) {
+  if (!AC || S.muted) return;
+  const t = AC.currentTime; const notes = ok ? [660, 880, 1320] : [300, 220];
+  notes.forEach((f, i) => {
+    const o = AC.createOscillator(), g = AC.createGain(); o.type = ok ? 'sine' : 'square'; o.frequency.value = f;
+    g.gain.setValueAtTime(0.0001, t + i * 0.09); g.gain.exponentialRampToValueAtTime(ok ? 0.18 : 0.07, t + i * 0.09 + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + i * 0.09 + 0.22);
+    o.connect(g); g.connect(master); o.start(t + i * 0.09); o.stop(t + i * 0.09 + 0.25);
+  });
+}
+
+/* =====================================================================
+   3D scene
+   ===================================================================== */
+const canvas = $('view');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+renderer.setClearColor(0x0b1530);
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0xdfe7f2, 45, 200);
+const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 400);
+camera.rotation.order = 'YXZ';
+scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+const sun = new THREE.DirectionalLight(0xffffff, 0.42); sun.position.set(0.35, 1, 0.25); scene.add(sun);
+
+function tex(w, h, draw, rep) {
+  const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+  draw(cv.getContext('2d'), w, h);
+  const t = new THREE.CanvasTexture(cv);
+  if (rep) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep[0], rep[1]); }
+  return t;
+}
+function marble(g, w, h, base, seed) {
+  g.fillStyle = base; g.fillRect(0, 0, w, h);
+  const rnd = seeded(seed); g.lineWidth = 1;
+  for (let i = 0; i < 9; i++) {
+    g.strokeStyle = 'rgba(120,135,160,' + (0.08 + rnd() * 0.12) + ')'; g.beginPath();
+    let x = rnd() * w, y = rnd() * h; g.moveTo(x, y);
+    for (let k = 0; k < 4; k++) { x += (rnd() - 0.5) * w * 0.5; y += (rnd() - 0.3) * h * 0.4; g.lineTo(x, y); }
+    g.stroke();
+  }
+}
+const EMOJI_FONT = '"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
+const SIGN_FONT = '"Arial Black","Helvetica Neue",Arial,sans-serif';
+
+// Collect flat quads per material, then make one mesh for each.
+class Quads {
+  constructor() { this.p = []; this.n = []; this.u = []; this.i = []; }
+  add(a, b, c, d, n) {
+    const k = this.p.length / 3;
+    this.p.push(a[0], a[1], a[2], b[0], b[1], b[2], c[0], c[1], c[2], d[0], d[1], d[2]);
+    for (let j = 0; j < 4; j++) this.n.push(n[0], n[1], n[2]);
+    this.u.push(0, 0, 1, 0, 1, 1, 0, 1); this.i.push(k, k + 1, k + 2, k, k + 2, k + 3);
+  }
+  mesh(mat) {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(this.p, 3));
+    g.setAttribute('normal', new THREE.Float32BufferAttribute(this.n, 3));
+    g.setAttribute('uv', new THREE.Float32BufferAttribute(this.u, 2));
+    g.setIndex(this.i);
+    return new THREE.Mesh(g, mat);
+  }
+}
+
+const materials = {};
+function lam(map, extra) { return new THREE.MeshLambertMaterial(Object.assign({ map, side: THREE.DoubleSide }, extra || {})); }
+function buildMaterials() {
+  SHOP_SIGNS.forEach(([name, color], i) => {
+    materials['front' + i] = lam(tex(256, 300, (g, w, h) => {
+      marble(g, w, h, '#e9edf3', 11 + i);
+      g.fillStyle = '#d6dce6'; g.fillRect(0, 0, 16, h); g.fillRect(w - 16, 0, 16, h);
+      g.fillStyle = '#c8a04a'; g.fillRect(16, 0, 2, h); g.fillRect(w - 18, 0, 2, h);
+      g.fillStyle = color; g.fillRect(24, 16, w - 48, 56);
+      g.fillStyle = '#fff'; g.textAlign = 'center'; g.textBaseline = 'middle';
+      let size = 34; do { g.font = size + 'px ' + SIGN_FONT; size -= 2; } while (g.measureText(name).width > w - 70 && size > 12);
+      g.fillText(name, w / 2, 45);
+      g.fillStyle = '#b6bdc9'; g.fillRect(24, 84, w - 48, h - 96);                       // roller shutter
+      for (let y = 88; y < h - 14; y += 9) { g.fillStyle = '#98a1b0'; g.fillRect(24, y, w - 48, 2); g.fillStyle = '#cdd3dc'; g.fillRect(24, y + 2, w - 48, 1); }
+      g.fillStyle = '#7d8696'; g.fillRect(24, h - 22, w - 48, 10);
+      g.fillStyle = '#c8a04a'; g.fillRect(w / 2 - 6, h - 26, 12, 12);                     // padlock
+      g.fillStyle = '#3a4253'; g.fillRect(0, h - 10, w, 10);
+    }));
+  });
+  materials.plain = lam(tex(256, 300, (g, w, h) => {
+    marble(g, w, h, '#edf0f5', 77); g.fillStyle = '#c8a04a'; g.fillRect(0, h - 60, w, 2); g.fillStyle = '#3a4253'; g.fillRect(0, h - 10, w, 10);
+  }));
+  materials.dome = lam(tex(256, 300, (g, w, h) => {
+    marble(g, w, h, '#f1f3f7', 5);
+    g.fillStyle = '#c8a04a'; [0, w - 14].forEach(x => g.fillRect(x, 0, 14, h));
+    g.strokeStyle = '#c8a04a'; g.lineWidth = 3; g.beginPath(); g.arc(w / 2, 150, 90, Math.PI, 0); g.lineTo(w / 2 + 90, h - 12); g.moveTo(w / 2 - 90, 150); g.lineTo(w / 2 - 90, h - 12); g.stroke();
+    g.fillStyle = '#3a4253'; g.fillRect(0, h - 10, w, 10);
+  }));
+  materials.play = lam(tex(256, 300, (g, w, h) => {
+    g.fillStyle = '#8fd3f4'; g.fillRect(0, 0, w, h);
+    const rnd = seeded(9), cols = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#ff9ff3', '#ffffff'];
+    for (let i = 0; i < 26; i++) { g.fillStyle = cols[i % cols.length]; g.beginPath(); g.arc(rnd() * w, rnd() * h, 8 + rnd() * 22, 0, 7); g.fill(); }
+    g.fillStyle = '#ff6b6b'; g.fillRect(0, h - 26, w, 26);
+  }));
+  materials.climb = lam(tex(256, 300, (g, w, h) => {
+    g.fillStyle = '#7f8fa6'; g.fillRect(0, 0, w, h); const rnd = seeded(4);
+    for (let i = 0; i < 40; i++) { g.fillStyle = 'rgba(255,255,255,' + rnd() * 0.12 + ')'; g.fillRect(rnd() * w, rnd() * h, 30 + rnd() * 50, 20 + rnd() * 40); }
+  }));
+  KEEPERS.forEach(k => {
+    const col = '#' + k.color.toString(16).padStart(6, '0');
+    materials['alcove' + k.id] = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, map: tex(256, 300, (g, w, h) => {
+      g.fillStyle = '#fff8e7'; g.fillRect(0, 0, w, h); g.fillStyle = col; g.fillRect(0, 0, w, 40); g.fillRect(0, h - 22, w, 22);
+      const rnd = seeded(k.color), cols = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#b983ff'];
+      for (let y = 90; y < h - 30; y += 62) { g.fillStyle = '#b08968'; g.fillRect(14, y, w - 28, 6); for (let x = 22; x < w - 40; x += 34) { g.fillStyle = cols[Math.floor(rnd() * 5)]; const bh = 18 + rnd() * 26; g.fillRect(x, y - bh, 24, bh); } }
+    }) });
+  });
+  materials.ceiling = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide, fog: false, map: tex(128, 128, (g, w, h) => {
+    g.fillStyle = '#0b1530'; g.fillRect(0, 0, w, h);
+    const rnd = seeded(21); g.fillStyle = '#cfe0ff'; for (let i = 0; i < 9; i++) g.fillRect(8 + rnd() * (w - 16), 8 + rnd() * (h - 16), 1.5, 1.5);
+    g.strokeStyle = '#f4f6fa'; g.lineWidth = 9; g.strokeRect(0, 0, w, h);
+    g.shadowColor = '#fff'; g.shadowBlur = 16; g.fillStyle = '#ffffff'; g.fillRect(w / 2 - 30, h / 2 - 7, 60, 14);
+  }) });
+  materials.domeGlass = new THREE.MeshBasicMaterial({ side: THREE.BackSide, fog: false, map: tex(256, 256, (g, w, h) => {
+    const gr = g.createLinearGradient(0, 0, 0, h); gr.addColorStop(0, '#060c1f'); gr.addColorStop(1, '#16264f'); g.fillStyle = gr; g.fillRect(0, 0, w, h);
+    const rnd = seeded(31); g.fillStyle = '#dbe7ff'; for (let i = 0; i < 40; i++) g.fillRect(rnd() * w, rnd() * h, 2, 2);
+    g.strokeStyle = '#f4f6fa'; g.lineWidth = 5; g.strokeRect(0, 0, w, h); g.lineWidth = 2; g.beginPath(); g.moveTo(0, 0); g.lineTo(w, h); g.moveTo(w, 0); g.lineTo(0, h); g.stroke();
+  }, [16, 4]) });
+}
+
+const npcs = [];
+let baba = null, doorPanels = [], exitSign = null, exitSignTex = {}, pitBalls = null;
+const trampolines = [{ x: 14, z: 10, r: 2.2 }, { x: 26, z: 10, r: 2.2 }, { x: 30, z: 40, r: 2.2 }];
+const PIT = { x0: 8, x1: 20, z0: 34, z1: 46 };
+const CLIMB = { x: 6, z0: 18, z1: 30 };
+
+function buildMall() {
+  buildMaterials();
+  const batches = {};
+  const batch = key => batches[key] || (batches[key] = new Quads());
+  const alcoveOf = {}; KEEPERS.forEach(k => { alcoveOf[k.cell[0] + ',' + k.cell[1]] = k; });
+  const dirs = [[0, -1], [1, 0], [0, 1], [-1, 0]];
+  for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+    const ch = MAP[r][c];
+    if (ch === '#' || ch === 'E') continue;
+    const x0 = c * CELL, x1 = x0 + CELL, z0 = r * CELL, z1 = z0 + CELL;
+    if (ch !== 'D') batch('ceiling').add([x0, WALL_H, z0], [x1, WALL_H, z0], [x1, WALL_H, z1], [x0, WALL_H, z1], [0, -1, 0]);
+    dirs.forEach(([dx, dz], di) => {
+      const nb = cellChar(c + dx, r + dz);
+      if (nb !== '#') return;                                       // exit doors are separate meshes
+      let key;
+      if (alcoveOf[c + ',' + r]) key = 'alcove' + alcoveOf[c + ',' + r].id;
+      else if (ch === 'D') key = 'dome';
+      else if (ch === 'P') key = (c === 1 && dx === -1 && (r === 3 || r === 4)) ? 'climb' : 'play';
+      else { const h = (c * 7 + r * 13 + di * 5) % (SHOP_SIGNS.length + 2); key = h < SHOP_SIGNS.length ? 'front' + h : 'plain'; }
+      const mx = (c + 0.5 + dx * 0.5) * CELL, mz = (r + 0.5 + dz * 0.5) * CELL;
+      const rx = -dz * CELL / 2, rz = dx * CELL / 2;                 // the viewer's right, when facing this wall
+      batch(key).add([mx - rx, 0, mz - rz], [mx + rx, 0, mz + rz], [mx + rx, WALL_H, mz + rz], [mx - rx, WALL_H, mz - rz], [-dx, 0, -dz]);
+    });
+  }
+  Object.keys(batches).forEach(key => scene.add(batches[key].mesh(materials[key])));
+
+  // polished marble floor
+  const floorTex = tex(256, 256, (g, w, h) => {
+    marble(g, w, h, '#f0f2f6', 3);
+    g.strokeStyle = '#cdd4de'; g.lineWidth = 2; g.strokeRect(0, 0, w / 2, h / 2); g.strokeRect(w / 2, 0, w / 2, h / 2); g.strokeRect(0, h / 2, w / 2, h / 2); g.strokeRect(w / 2, h / 2, w / 2, h / 2);
+    g.fillStyle = '#c8a04a'; [[w / 2, h / 2], [0, 0], [w, 0], [0, h], [w, h]].forEach(([x, y]) => { g.save(); g.translate(x, y); g.rotate(Math.PI / 4); g.fillRect(-7, -7, 14, 14); g.restore(); });
+  }, [COLS, ROWS]);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(COLS * CELL, ROWS * CELL), new THREE.MeshPhongMaterial({ map: floorTex, color: 0xb9c0cc, shininess: 70, specular: 0x2b2b2b }));
+  floor.rotation.x = -Math.PI / 2; floor.position.set(COLS * CELL / 2, 0, ROWS * CELL / 2); scene.add(floor);
+
+  // dome: glass roof and floor rosette
+  const dome = new THREE.Mesh(new THREE.SphereGeometry(27.5, 28, 12, 0, Math.PI * 2, 0, Math.PI / 2), materials.domeGlass);
+  dome.scale.y = 0.62; dome.position.set(DOME.x, WALL_H, DOME.z); scene.add(dome);
+  const rosette = new THREE.Mesh(new THREE.CircleGeometry(10, 48), new THREE.MeshLambertMaterial({ color: 0xc9cfd9, map: tex(512, 512, (g, w) => {
+    const m = w / 2; g.fillStyle = '#f4f6fa'; g.fillRect(0, 0, w, w);
+    [[250, '#15223f'], [238, '#f4f6fa'], [228, '#c8a04a'], [220, '#f4f6fa']].forEach(([r, col]) => { g.fillStyle = col; g.beginPath(); g.arc(m, m, r, 0, 7); g.fill(); });
+    for (let i = 0; i < 16; i++) { g.save(); g.translate(m, m); g.rotate(i * Math.PI / 8); g.fillStyle = i % 2 ? '#e6d5a8' : '#b9c3d6'; g.beginPath(); g.moveTo(0, -(i % 2 ? 150 : 210)); g.lineTo(26, 0); g.lineTo(-26, 0); g.fill(); g.restore(); }
+    g.fillStyle = '#f4f6fa'; g.beginPath(); g.arc(m, m, 34, 0, 7); g.fill();
+  }) }));
+  rosette.rotation.x = -Math.PI / 2; rosette.position.set(DOME.x, 0.03, DOME.z); scene.add(rosette);
+
+  buildPlayArea(); buildExit(); buildKeepers(); buildBaba();
+}
+
+function buildPlayArea() {
+  const mat = new THREE.Mesh(new THREE.PlaneGeometry(30, 42), new THREE.MeshLambertMaterial({ map: tex(200, 280, (g, w, h) => {
+    const cols = ['#ff6b6b', '#ffd93d', '#6bcb77', '#4d96ff', '#b983ff', '#ff9f45'];
+    for (let y = 0; y < 14; y++) for (let x = 0; x < 10; x++) { g.fillStyle = cols[(x * 3 + y * 5) % cols.length]; g.fillRect(x * 20, y * 20, 20, 20); g.strokeStyle = 'rgba(0,0,0,.12)'; g.strokeRect(x * 20, y * 20, 20, 20); }
+  }) }));
+  mat.rotation.x = -Math.PI / 2; mat.position.set(21, 0.03, 27); scene.add(mat);
+  trampolines.forEach((t, i) => {
+    const ring = new THREE.Mesh(new THREE.CylinderGeometry(t.r, t.r, 0.3, 20), new THREE.MeshLambertMaterial({ color: [0xff5d73, 0x3fa7ff, 0x3ccf7e][i % 3] }));
+    ring.position.set(t.x, 0.15, t.z); scene.add(ring);
+    const bed = new THREE.Mesh(new THREE.CircleGeometry(t.r - 0.4, 20), new THREE.MeshLambertMaterial({ color: 0x1b2440 }));
+    bed.rotation.x = -Math.PI / 2; bed.position.set(t.x, 0.31, t.z); scene.add(bed); t.bed = bed;
+  });
+  const rim = new THREE.MeshLambertMaterial({ color: 0x4d96ff }), w = PIT.x1 - PIT.x0, d = PIT.z1 - PIT.z0;
+  [[(PIT.x0 + PIT.x1) / 2, PIT.z0, w, 0.5], [(PIT.x0 + PIT.x1) / 2, PIT.z1, w, 0.5], [PIT.x0, (PIT.z0 + PIT.z1) / 2, 0.5, d], [PIT.x1, (PIT.z0 + PIT.z1) / 2, 0.5, d]].forEach(([x, z, sx, sz]) => {
+    const b = new THREE.Mesh(new THREE.BoxGeometry(sx, 0.6, sz), rim); b.position.set(x, 0.3, z); scene.add(b);
+  });
+  const n = 260; pitBalls = new THREE.InstancedMesh(new THREE.SphereGeometry(0.36, 8, 6), new THREE.MeshLambertMaterial({ color: 0xffffff }), n);
+  const m4 = new THREE.Matrix4(), col = new THREE.Color(), cols = [0xff6b6b, 0xffd93d, 0x6bcb77, 0x4d96ff, 0xff9ff3];
+  for (let i = 0; i < n; i++) { m4.setPosition(rand(PIT.x0 + 0.6, PIT.x1 - 0.6), rand(0.2, 0.55), rand(PIT.z0 + 0.6, PIT.z1 - 0.6)); pitBalls.setMatrixAt(i, m4); pitBalls.setColorAt(i, col.setHex(cols[i % 5])); }
+  scene.add(pitBalls);
+  const rnd = seeded(8), holdCols = [0xff6b6b, 0xffd93d, 0x6bcb77, 0xff9f45, 0xffffff];
+  for (let i = 0; i < 34; i++) {
+    const hold = new THREE.Mesh(new THREE.SphereGeometry(0.2 + rnd() * 0.12, 6, 5), new THREE.MeshLambertMaterial({ color: holdCols[i % 5] }));
+    hold.position.set(CLIMB.x + 0.1, 0.5 + rnd() * 6, CLIMB.z0 + 0.5 + rnd() * (CLIMB.z1 - CLIMB.z0 - 1)); scene.add(hold);
+  }
+}
+
+function buildExit() {
+  const z = 19 * CELL, top = 4.6;
+  const lintel = new THREE.Mesh(new THREE.BoxGeometry(3 * CELL, WALL_H - top, 0.4), new THREE.MeshLambertMaterial({ color: 0xeef1f6 }));
+  lintel.position.set(EXIT.x, (WALL_H + top) / 2, z); scene.add(lintel);
+  const signTex = (word, bg) => tex(512, 128, (g, w, h) => { g.fillStyle = bg; g.fillRect(0, 0, w, h); g.fillStyle = '#fff'; g.font = '76px ' + SIGN_FONT; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(word, w / 2, h / 2 + 4); });
+  exitSignTex = { closed: signTex('KAPALI', '#c2353b'), open: signTex('ÇIKIŞ', '#22824f') };
+  exitSign = new THREE.Mesh(new THREE.PlaneGeometry(8, 1.8), new THREE.MeshBasicMaterial({ map: exitSignTex.closed, fog: false }));
+  exitSign.rotation.y = Math.PI; exitSign.position.set(EXIT.x, (WALL_H + top) / 2, z - 0.22); scene.add(exitSign);
+  const glass = new THREE.MeshBasicMaterial({ color: 0x9fd3ff, transparent: true, opacity: 0.42, fog: false });
+  const frame = new THREE.MeshLambertMaterial({ color: 0xc8a04a });
+  for (let c = 13; c <= 15; c++) [-1, 1].forEach(side => {
+    const g = new THREE.Group();
+    const pane = new THREE.Mesh(new THREE.BoxGeometry(CELL / 2 - 0.12, top, 0.1), glass); pane.position.y = top / 2; g.add(pane);
+    const bar = new THREE.Mesh(new THREE.BoxGeometry(0.12, 1.2, 0.2), frame); bar.position.set(-side * (CELL / 4 - 0.4), 2.2, 0); g.add(bar);
+    g.position.set((c + 0.5) * CELL + side * CELL / 4, 0, z); g.userData = { home: g.position.x, side }; scene.add(g); doorPanels.push(g);
+  });
+  // the car waiting outside, in the dark
+  const car = new THREE.Group(), body = new THREE.MeshLambertMaterial({ color: 0x2b3a67 });
+  const lower = new THREE.Mesh(new THREE.BoxGeometry(4.4, 1, 2), body); lower.position.y = 0.9; car.add(lower);
+  const cab = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.9, 1.8), new THREE.MeshLambertMaterial({ color: 0x9fd3ff })); cab.position.y = 1.8; car.add(cab);
+  [[-1.4, 1], [1.4, 1], [-1.4, -1], [1.4, -1]].forEach(([x, zz]) => { const wh = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 0.3, 12), new THREE.MeshLambertMaterial({ color: 0x111111 })); wh.rotation.x = Math.PI / 2; wh.position.set(x, 0.45, zz); car.add(wh); });
+  car.position.set(EXIT.x, 0, z + 9); scene.add(car);
+}
+function setDoors(k) {
+  doorPanels.forEach(g => { g.position.x = g.userData.home + g.userData.side * k * (CELL / 4 - 0.2); g.scale.x = 1 - 0.88 * k; });
+}
+
+function faceTex(seed, angry) {
+  return tex(128, 128, (g, w) => {
+    const rnd = seeded(seed), ex = 26 + rnd() * 8, er = 13 + rnd() * 7;
+    [-1, 1].forEach(s => {
+      g.fillStyle = '#fff'; g.beginPath(); g.arc(w / 2 + s * ex, 50, er, 0, 7); g.fill(); g.strokeStyle = '#111'; g.lineWidth = 3; g.stroke();
+      g.fillStyle = '#111'; g.beginPath(); g.arc(w / 2 + s * ex + 2, 53, er * 0.45, 0, 7); g.fill();
+      if (angry) { g.strokeStyle = '#2a1a0a'; g.lineWidth = 8; g.beginPath(); g.moveTo(w / 2 + s * (ex + 16), 22); g.lineTo(w / 2 + s * (ex - 14), 34); g.stroke(); }
+    });
+    g.strokeStyle = '#111'; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath();
+    if (angry) { g.fillStyle = '#7a1f1f'; g.arc(w / 2, 92, 24, 0, Math.PI); g.closePath(); g.fill(); g.stroke(); g.fillStyle = '#fff'; g.fillRect(w / 2 - 16, 93, 32, 7); }
+    else if (rnd() > 0.5) { g.arc(w / 2, 82, 22, 0.15 * Math.PI, 0.85 * Math.PI); g.stroke(); }
+    else { g.fillStyle = '#7a1f1f'; g.arc(w / 2, 90, 13, 0, 7); g.fill(); g.stroke(); }
+  });
+}
+function emojiSprite(emoji, size) {
+  const t = tex(128, 128, (g, w) => { g.font = '92px ' + EMOJI_FONT; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(emoji, w / 2, w / 2 + 6); });
+  const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: t, transparent: true })); s.scale.set(size, size, 1); return s;
+}
+
+function buildKeepers() {
+  KEEPERS.forEach((k, i) => {
+    const [c, r] = k.cell;
+    let dir = [0, 1];
+    [[0, -1], [1, 0], [0, 1], [-1, 0]].forEach(d => { const ch = cellChar(c + d[0], r + d[1]); if (ch === '.' || ch === 'D') dir = d; });
+    const cc = centre(c, r);
+    const grp = new THREE.Group(), mat = new THREE.MeshLambertMaterial({ color: k.color });
+    let body, faceZ = 1, faceY = 1.5;
+    switch (k.shape) {
+      case 'cube': body = new THREE.Mesh(new THREE.BoxGeometry(1.7, 1.7, 1.7), mat); body.position.y = 1.35; faceZ = 0.87; faceY = 1.4; break;
+      case 'ball': body = new THREE.Mesh(new THREE.SphereGeometry(1.05, 16, 12), mat); body.position.y = 1.5; faceZ = 1.0; break;
+      case 'cone': body = new THREE.Mesh(new THREE.ConeGeometry(1.1, 2.6, 16), mat); body.position.y = 1.6; faceZ = 0.72; faceY = 1.2; break;
+      case 'cyl': body = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 2.3, 16), mat); body.position.y = 1.5; faceZ = 0.87; faceY = 1.8; break;
+      case 'egg': body = new THREE.Mesh(new THREE.SphereGeometry(0.95, 16, 12), mat); body.scale.y = 1.4; body.position.y = 1.65; faceZ = 0.93; faceY = 1.7; break;
+      case 'pyramid': body = new THREE.Mesh(new THREE.ConeGeometry(1.35, 2.3, 4), mat); body.rotation.y = Math.PI / 4; body.position.y = 1.5; faceZ = 0.62; faceY = 1.15; break;
+      default: body = new THREE.Mesh(new THREE.TorusGeometry(0.85, 0.42, 10, 20), mat); body.position.y = 1.65; faceZ = 0.45; faceY = 2.5;
+    }
+    grp.add(body);
+    const face = new THREE.Mesh(new THREE.PlaneGeometry(1.15, 1.15), new THREE.MeshBasicMaterial({ map: faceTex(100 + i * 17, false), transparent: true }));
+    face.position.set(0, faceY, faceZ + 0.02); grp.add(face);
+    [-0.45, 0.45].forEach(x => { const f = new THREE.Mesh(new THREE.SphereGeometry(0.28, 8, 6), new THREE.MeshLambertMaterial({ color: 0x222831 })); f.scale.set(1, 0.6, 1.5); f.position.set(x, 0.17, 0.25); grp.add(f); });
+    const x = cc.x + dir[0] * 1.3, z = cc.z + dir[1] * 1.3;
+    grp.position.set(x, 0, z); scene.add(grp);
+    const item = emojiSprite(k.item.emoji, 1.5), done = emojiSprite('✅', 1.3);
+    item.position.set(x, 3.7, z); done.position.set(x, 3.7, z); done.visible = false; scene.add(item); scene.add(done);
+    npcs.push({ k, x, z, grp, item, done, armed: true, bob: i * 1.3 });
+  });
+}
+
+function buildBaba() {
+  baba = new THREE.Group();
+  const L = c => new THREE.MeshLambertMaterial({ color: c });
+  const shoeMat = new THREE.MeshPhongMaterial({ color: 0x0a0a0a, shininess: 120 });
+  baba.userData.shoes = [-0.32, 0.32].map(x => {
+    const s = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.24, 1.0), shoeMat); s.position.set(x, 0.12, 0.12); baba.add(s);
+    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.38, 1.4, 0.38), L(0x26324f)); leg.position.set(x, 0.9, 0); baba.add(leg); s.userData.leg = leg; return s;
+  });
+  // A bright red jumper and a yellow tie, so he stands out against the pale mall from far away.
+  const torso = new THREE.Mesh(new THREE.BoxGeometry(1.3, 1.5, 0.65), L(0xd62828)); torso.position.y = 2.3; baba.add(torso);
+  const tie = new THREE.Mesh(new THREE.BoxGeometry(0.18, 1.0, 0.06), L(0xffd166)); tie.position.set(0, 2.4, 0.35); baba.add(tie);
+  [-0.82, 0.82].forEach(x => {
+    const arm = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.3, 1.3), L(0xd62828)); arm.position.set(x, 2.75, 0.6); baba.add(arm);
+    const hand = new THREE.Mesh(new THREE.SphereGeometry(0.22, 8, 6), L(0xe8b98c)); hand.position.set(x, 2.75, 1.32); baba.add(hand);
+  });
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.52, 14, 10), L(0xe8b98c)); head.position.y = 3.5; baba.add(head);
+  const hair = new THREE.Mesh(new THREE.SphereGeometry(0.55, 14, 8, 0, Math.PI * 2, 0, Math.PI / 2.4), L(0x2a1a0a)); hair.position.y = 3.55; baba.add(hair);
+  const face = new THREE.Mesh(new THREE.PlaneGeometry(0.9, 0.9), new THREE.MeshBasicMaterial({ map: faceTex(7, true), transparent: true })); face.position.set(0, 3.45, 0.5); baba.add(face);
+  // A name sign over his head that the fog does not hide, so Noah can spot him at the far end of a corridor.
+  const signTex = tex(256, 96, g => {
+    g.fillStyle = '#d62828'; g.fillRect(0, 0, 256, 96); g.strokeStyle = '#fff'; g.lineWidth = 8; g.strokeRect(4, 4, 248, 88);
+    g.fillStyle = '#fff'; g.font = '900 62px system-ui, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('BABA', 128, 52);
+  });
+  const sign = new THREE.Sprite(new THREE.SpriteMaterial({ map: signTex, fog: false })); sign.scale.set(2.5, 0.94, 1); sign.position.y = 4.75; baba.add(sign);
+  baba.scale.setScalar(1.0); baba.visible = false; scene.add(baba);
+}
+
+// The people wandering the mall.
+const walkers = [];
+let greetCd = 3;
+function greetLinesFor(voice) {
+  const out = [];
+  if (PACK) PACK.manifest.rows.forEach(r => { if (WALKER_ROWS.indexOf(r.n) < 0) return; r.prompts.forEach(p => { const c = p.clips[voice]; if (c) out.push(c); }); });
+  return out.length ? out : [{ text: 'Merhaba!', file: null }, { text: 'İyi akşamlar!', file: null }];
+}
+function buildWalkers() {
+  const dark = new THREE.MeshLambertMaterial({ color: 0x222831 }), skin = new THREE.MeshLambertMaterial({ color: 0xe8b98c });
+  WALKERS.forEach((k, i) => {
+    const grp = new THREE.Group(), mat = new THREE.MeshLambertMaterial({ color: k.color });
+    const feet = [-0.28, 0.28].map(x => { const f = new THREE.Mesh(new THREE.SphereGeometry(0.24, 8, 6), dark); f.scale.set(1, 0.6, 1.6); f.position.set(x, 0.15, 0.1); grp.add(f); return f; });
+    let headY = 2.2, faceZ = 0.46;
+    if (k.robot) {
+      const body = new THREE.Mesh(new THREE.BoxGeometry(1.1, 1.2, 0.9), mat); body.position.y = 0.95; grp.add(body);
+      const head = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.7, 0.8), new THREE.MeshLambertMaterial({ color: 0xcfd8e3 })); head.position.y = 2.0; grp.add(head);
+      const light = new THREE.Mesh(new THREE.SphereGeometry(0.13, 8, 6), new THREE.MeshBasicMaterial({ color: 0xff4d4d })); light.position.y = 2.55; grp.add(light);
+      headY = 2.0; faceZ = 0.42;
+    } else {
+      const body = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.62, 1.5, 12), mat); body.position.y = 1.05; grp.add(body);
+      const head = new THREE.Mesh(new THREE.SphereGeometry(0.44, 12, 10), skin); head.position.y = 2.2; grp.add(head);
+    }
+    const face = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 0.8), new THREE.MeshBasicMaterial({ map: faceTex(300 + i * 31, false), transparent: true })); face.position.set(0, headY, faceZ); grp.add(face);
+    const prop = emojiSprite(k.emoji, 1.0); prop.position.set(0.85, k.propY || 1.5, 0.25); grp.add(prop);
+    const c = centre(k.cell[0], k.cell[1]), ox = rand(-1.4, 1.4), oz = rand(-1.4, 1.4);
+    grp.position.set(c.x + ox, 0, c.z + oz); scene.add(grp);
+    walkers.push({ k, grp, feet, x: c.x + ox, z: c.z + oz, ox, oz, tc: k.cell[0], tr: k.cell[1], dc: 0, dr: 0, yaw: rand(0, 6.28), phase: rand(0, 6),
+                   pause: rand(0, 2), cd: rand(3, 9), hop: 0, moving: false, lines: greetLinesFor(k.voice) });
+  });
+}
+const walkerCell = (c, r) => { const ch = cellChar(c, r); return ch === '.' || ch === 'D'; };
+function updateWalkers(dt) {
+  const canGreet = S.mode === 'play' && !S.conv;
+  if (greetCd > 0) greetCd -= dt;
+  walkers.forEach(w => {
+    if (w.pause > 0) { w.pause -= dt; w.moving = false; }
+    else {
+      const tx = (w.tc + 0.5) * CELL + w.ox, tz = (w.tr + 0.5) * CELL + w.oz, dx = tx - w.x, dz = tz - w.z, d = Math.hypot(dx, dz);
+      if (d < 0.12) {                                                  // reached this cell: pick the next one, mostly straight on, never straight back unless it is a dead end
+        const open = [[1, 0], [-1, 0], [0, 1], [0, -1]].filter(([a, b]) => walkerCell(w.tc + a, w.tr + b));
+        const ahead = open.filter(([a, b]) => !(a === -w.dc && b === -w.dr)), from = ahead.length ? ahead : open;
+        if (from.length) {
+          let nd = from.find(([a, b]) => a === w.dc && b === w.dr); if (!nd || Math.random() < 0.3) nd = pick(from);
+          w.dc = nd[0]; w.dr = nd[1]; w.tc += nd[0]; w.tr += nd[1];
+          if (Math.random() < 0.1) w.pause = rand(1, 2.5);
+        } else w.pause = 2;
+        w.moving = false;
+      } else {
+        const s = Math.min(d, w.k.speed * dt); w.x += dx / d * s; w.z += dz / d * s;
+        let diff = Math.atan2(dx, dz) - w.yaw; while (diff > Math.PI) diff -= 2 * Math.PI; while (diff < -Math.PI) diff += 2 * Math.PI;
+        w.yaw += diff * Math.min(1, dt * 7); w.phase += dt * w.k.speed * 2.6; w.moving = true;
+      }
+    }
+    if (canGreet) {
+      w.cd -= dt;
+      const dn = Math.hypot(P.x - w.x, P.z - w.z);
+      if (dn < 7.5 && w.cd <= 0 && greetCd <= 0 && sight(w, P)) {     // say hello as Noah passes: turn to him, hop, speak
+        w.cd = rand(14, 22); greetCd = 4; w.hop = 1; w.pause = Math.max(w.pause, 1.3); w.yaw = Math.atan2(P.x - w.x, P.z - w.z);
+        const line = pick(w.lines); toast(w.k.emoji + ' ' + line.text); ambient(line.file, clamp(1.15 - dn / 12, 0.45, 1));
+      }
+    }
+    if (w.hop > 0) w.hop = Math.max(0, w.hop - dt * 2.2);
+    w.grp.position.set(w.x, (w.moving ? Math.abs(Math.sin(w.phase)) * 0.07 : 0) + Math.sin(w.hop * Math.PI) * 0.5, w.z);
+    w.grp.rotation.y = w.yaw;
+    w.feet.forEach((f, i) => { f.position.z = 0.1 + (w.moving ? Math.sin(w.phase + i * Math.PI) * 0.22 : 0); });
+  });
+}
+
+/* =====================================================================
+   Moving around
+   ===================================================================== */
+function blocked(x, z, rad) {
+  const c0 = Math.floor((x - rad) / CELL), c1 = Math.floor((x + rad) / CELL), r0 = Math.floor((z - rad) / CELL), r1 = Math.floor((z + rad) / CELL);
+  for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) {
+    if (!solid(c, r)) continue;
+    const nx = clamp(x, c * CELL, (c + 1) * CELL), nz = clamp(z, r * CELL, (r + 1) * CELL);
+    if ((x - nx) * (x - nx) + (z - nz) * (z - nz) < rad * rad) return true;
+  }
+  return false;
+}
+function sight(a, b) {
+  const dx = b.x - a.x, dz = b.z - a.z, d = Math.hypot(dx, dz), n = Math.ceil(d / 0.6);
+  for (let i = 1; i < n; i++) { const t = i / n; if (solid(Math.floor((a.x + dx * t) / CELL), Math.floor((a.z + dz * t) / CELL))) return false; }
+  return true;
+}
+// Steps from Noah's cell to every other cell, so Baba always knows the way round the walls.
+const field = new Int16Array(COLS * ROWS);
+function planRoute() {
+  field.fill(-1);
+  const pc = cellOf(P); let sc = clamp(pc.c, 0, COLS - 1), sr = clamp(pc.r, 0, ROWS - 1);
+  if (cellChar(sc, sr) === 'E') sr -= 1;
+  if (cellChar(sc, sr) === '#') return;
+  const q = [sc + sr * COLS]; field[q[0]] = 0;
+  for (let h = 0; h < q.length; h++) {
+    const id = q[h], c = id % COLS, r = (id - c) / COLS;
+    [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(([dx, dz]) => {
+      const nc = c + dx, nr = r + dz, ch = cellChar(nc, nr);
+      if (ch === '#' || ch === 'E') return;
+      const nid = nc + nr * COLS; if (field[nid] === -1) { field[nid] = field[id] + 1; q.push(nid); }
+    });
+  }
+}
+
+const keys = {};
+const stick = { id: null, ox: 0, oy: 0, x: 0, y: 0 };
+const look = { id: null, lx: 0, ly: 0 };
+function bindInput() {
+  window.addEventListener('keydown', e => {
+    keys[e.code] = true;
+    if (S.conv && /^Digit[1-3]$/.test(e.code)) { const b = document.querySelectorAll('#replies .say')[+e.code.slice(5) - 1]; if (b && !b.disabled) b.click(); }
+    if (/^Arrow|Space/.test(e.code)) e.preventDefault();
+  });
+  window.addEventListener('keyup', e => { keys[e.code] = false; });
+  ['pointerdown', 'keydown', 'touchend'].forEach(t => window.addEventListener(t, wakeAudio, true));   // any tap or key wakes the sound
+  window.addEventListener('blur', () => { for (const k in keys) keys[k] = false; });
+  canvas.addEventListener('pointerdown', e => {
+    if (S.mode !== 'play' || S.conv) return;
+    initAudio();
+    try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
+    if (e.pointerType === 'mouse') {
+      look.id = e.pointerId; look.lx = e.clientX; look.ly = e.clientY;
+      try { const p = canvas.requestPointerLock && canvas.requestPointerLock(); if (p && p.catch) p.catch(() => {}); } catch (err) {}
+    } else if (e.clientX < window.innerWidth * 0.5 && stick.id === null) {
+      stick.id = e.pointerId; stick.ox = e.clientX; stick.oy = e.clientY; stick.x = stick.y = 0;
+      const el = $('stick'); el.hidden = false; el.style.left = e.clientX + 'px'; el.style.top = e.clientY + 'px'; el.firstElementChild.style.transform = '';
+    } else if (look.id === null) { look.id = e.pointerId; look.lx = e.clientX; look.ly = e.clientY; }
+    e.preventDefault();
+  });
+  canvas.addEventListener('pointermove', e => {
+    if (e.pointerId === stick.id) {
+      let dx = e.clientX - stick.ox, dy = e.clientY - stick.oy; const d = Math.hypot(dx, dy), max = 52;
+      if (d > max) { dx *= max / d; dy *= max / d; }
+      stick.x = dx / max; stick.y = dy / max;
+      $('stick').firstElementChild.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+    } else if (e.pointerId === look.id && document.pointerLockElement !== canvas) {
+      const k = e.pointerType === 'mouse' ? 0.004 : 0.0055;
+      turn((e.clientX - look.lx) * k, (e.clientY - look.ly) * k); look.lx = e.clientX; look.ly = e.clientY;
+    }
+  });
+  const up = e => {
+    if (e.pointerId === stick.id) { stick.id = null; stick.x = stick.y = 0; $('stick').hidden = true; }
+    if (e.pointerId === look.id) look.id = null;
+  };
+  canvas.addEventListener('pointerup', up); canvas.addEventListener('pointercancel', up);
+  document.addEventListener('mousemove', e => { if (document.pointerLockElement === canvas && S.mode === 'play' && !S.conv) turn(e.movementX * 0.0024, e.movementY * 0.0024); });
+  canvas.addEventListener('contextmenu', e => e.preventDefault());
+}
+function turn(dx, dy) { P.yaw -= dx; P.pitch = clamp(P.pitch - dy, -1.2, 1.2); }
+function dropInput() { stick.id = null; stick.x = stick.y = 0; look.id = null; $('stick').hidden = true; try { if (document.exitPointerLock) document.exitPointerLock(); } catch (e) {} }
+
+function moveNoah(dt) {
+  let ix = stick.x, iz = -stick.y;
+  if (keys.KeyW || keys.ArrowUp) iz += 1; if (keys.KeyS || keys.ArrowDown) iz -= 1;
+  if (keys.KeyD) ix += 1; if (keys.KeyA) ix -= 1;
+  if (keys.ArrowLeft) P.yaw += 2.2 * dt; if (keys.ArrowRight) P.yaw -= 2.2 * dt;
+  const len = Math.hypot(ix, iz); if (len > 1) { ix /= len; iz /= len; }
+  P.inPit = P.x > PIT.x0 && P.x < PIT.x1 && P.z > PIT.z0 && P.z < PIT.z1 && P.y < 0.5;
+  const sp = NOAH_SPEED * (P.inPit ? 0.55 : 1);
+  const fx = -Math.sin(P.yaw), fz = -Math.cos(P.yaw), rx = Math.cos(P.yaw), rz = -Math.sin(P.yaw);
+  const vx = (fx * iz + rx * ix) * sp, vz = (fz * iz + rz * ix) * sp;
+  const nx = P.x + vx * dt, nz = P.z + vz * dt;
+  if (!blocked(nx, P.z, NOAH_R)) P.x = nx;
+  if (!blocked(P.x, nz, NOAH_R)) P.z = nz;
+  npcs.forEach(n => { const dx = P.x - n.x, dz = P.z - n.z, d = Math.hypot(dx, dz); if (d < 1.9 && d > 0.001) { const px = n.x + dx / d * 1.9, pz = n.z + dz / d * 1.9; if (!blocked(px, pz, NOAH_R)) { P.x = px; P.z = pz; } } });
+  // up and down: trampolines, climbing wall
+  const onWall = P.x < CLIMB.x + NOAH_R + 0.5 && P.z > CLIMB.z0 && P.z < CLIMB.z1 && vx < -1.5 && P.grip > 0;
+  if (onWall) { P.y = Math.min(4.6, P.y + 3.2 * dt); P.vy = 0; P.grip -= dt; }
+  else {
+    P.vy -= 20 * dt; P.y += P.vy * dt;
+    if (P.y <= 0) {
+      P.y = 0; P.grip = Math.min(5, P.grip + dt * 2);
+      const tr = trampolines.find(t => Math.hypot(P.x - t.x, P.z - t.z) < t.r - 0.2);
+      if (tr && (P.vy < -0.5 || vx || vz)) { P.vy = 11.5; tr.squash = 1; boing(); } else P.vy = 0;
+    }
+  }
+}
+
+/* =====================================================================
+   Baba
+   ===================================================================== */
+function placeBaba(far) {
+  let best = BABA_SPAWNS[0], bd = -1;
+  BABA_SPAWNS.forEach(s => { const c = centre(s[0], s[1]), d = Math.hypot(c.x - P.x, c.z - P.z); if (d > bd) { bd = d; best = s; } });
+  if (!far) best = BABA_SPAWNS[0];
+  const c = centre(best[0], best[1]); B.x = c.x; B.z = c.z; B.los = false; B.closeChase = false; B.planT = 0;
+  B.yaw = Math.atan2(P.x - B.x, P.z - B.z);                          // he starts out facing Noah
+}
+const atTop = () => B.speed >= BABA_TOP - 0.01;
+function babaSay(id, force) {
+  if (!force && B.lineCd > 0) return;
+  B.lineCd = 4.2;
+  const el = $('caption'); el.hidden = false; el.lastElementChild.textContent = BABA[id]; S.captionT = 3.2;
+  if (S.conv) return;                                              // during a conversation Baba is caption only, so the question stays clear
+  // His recorded voice is quieter far away and comes from his side, like the squeaks. Forced lines are always full volume.
+  const dx = B.x - P.x, dz = B.z - P.z, d = Math.max(0.001, Math.hypot(dx, dz));
+  const gain = force ? 1 : clamp(1.15 - d / 70, 0.3, 1), pan = force ? 0 : (dx * Math.cos(P.yaw) - dz * Math.sin(P.yaw)) / d * 0.7;
+  speak(BABA[id], id, { pitch: 0.7, rate: 0.95, gain, pan });
+}
+function moveBaba(dt) {
+  B.lineCd -= dt;
+  if (B.grace > 0) { B.grace -= dt; B.moving = false; return; }
+  const speed = B.speed * (S.conv ? 0.5 : 1);
+  B.planT -= dt; if (B.planT <= 0) { planRoute(); B.planT = 0.25; B.losNow = sight(B, P); }
+  const d = Math.hypot(P.x - B.x, P.z - B.z), bc = cellOf(B), pc = cellOf(P);
+  let tx = B.x, tz = B.z;
+  if ((bc.c === pc.c && bc.r === pc.r) || (d < 16 && B.losNow)) { tx = P.x; tz = P.z; }
+  else {
+    let best = field[bc.c + bc.r * COLS], bx = bc.c, br = bc.r;
+    [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(([dx, dz]) => {
+      const nc = bc.c + dx, nr = bc.r + dz; if (nc < 0 || nr < 0 || nc >= COLS || nr >= ROWS) return;
+      const v = field[nc + nr * COLS]; if (v >= 0 && (best < 0 || v < best)) { best = v; bx = nc; br = nr; }
+    });
+    const c = centre(bx, br); tx = c.x; tz = c.z;
+  }
+  const dx = tx - B.x, dz = tz - B.z, dist = Math.hypot(dx, dz);
+  B.moving = dist > 0.05;
+  if (B.moving) {
+    const step = Math.min(dist, speed * dt); B.x += dx / dist * step; B.z += dz / dist * step;
+    const want = Math.atan2(dx, dz); let diff = want - B.yaw; while (diff > Math.PI) diff -= 2 * Math.PI; while (diff < -Math.PI) diff += 2 * Math.PI;
+    B.yaw += diff * Math.min(1, dt * 9);
+    B.phase += dt * speed * 2.1;
+    B.stepT -= dt;
+    if (B.stepT <= 0) {
+      B.stepT = 1.55 / speed; B.foot ^= 1;
+      const v = clamp(1 - d / 78, 0, 1), fx = -Math.sin(P.yaw), fz = -Math.cos(P.yaw), rx = Math.cos(P.yaw), rz = -Math.sin(P.yaw);
+      const ddx = B.x - P.x, ddz = B.z - P.z, dn = Math.max(0.001, d);
+      squeak(0.012 + 0.5 * v * v, (ddx * rx + ddz * rz) / dn, !!B.foot);
+    }
+  }
+  // what he shouts
+  if (!S.saidB3 && S.playT > 26) { S.saidB3 = true; babaSay('B3'); }
+  if (B.losNow && !B.los && d < 46) babaSay('B6');
+  B.los = B.losNow;
+  if (B.los && d < 14) B.closeChase = true;
+  if (B.closeChase && d > 34) { B.closeChase = false; babaSay('B13', true); }
+  if (B.lineCd <= 0) {
+    if (B.los && d < 30) babaSay(atTop() ? pick(['B11', 'B11', 'B8']) : pick(['B7', 'B8', 'B9']));
+    else if (!B.los && d < 32) { babaSay('B5'); B.lineCd = 9; }
+    else if (!B.los) { babaSay(pick(['B1', 'B4'])); B.lineCd = 13; }
+  }
+  if (d < CATCH_RANGE && P.y < 2.2) caught();
+}
+function caught() {
+  if (S.conv) closeTalk(true);
+  dropInput();
+  babaSay('B12', true); chime(false);
+  S.mode = 'carried'; S.carry = { t: 0, fx: P.x, fz: P.z };
+  $('flash').classList.add('on');
+  baba.visible = false;
+}
+function updateCarry(dt) {
+  const c = S.carry; c.t += dt / 2.6; const t = clamp(c.t, 0, 1), e = t * t * (3 - 2 * t);
+  const x = c.fx + (DOME.x - c.fx) * e, z = c.fz + (DOME.z - c.fz) * e;
+  const back = Math.atan2(DOME.x - c.fx, DOME.z - c.fz);            // look back the way we came, over Baba's shoulder
+  camera.position.set(x, 2.7 + Math.sin(S.t * 13) * 0.13, z);
+  camera.rotation.set(-0.55, back, 0.42 + Math.sin(S.t * 6.5) * 0.06);
+  if (c.t >= 1) {
+    P.x = DOME.x; P.z = DOME.z; P.y = 0; P.vy = 0; P.yaw = 0; P.pitch = 0;
+    B.speed = Math.max(BABA_MIN, B.speed - BABA_MERCY); B.grace = 4; placeBaba(true);
+    S.mode = 'play'; S.carry = null; baba.visible = true; $('flash').classList.remove('on');
+    toast(S.exitOpen ? 'Çıkışa koş!' : 'Tekrar dene!');
+  }
+}
+
+/* =====================================================================
+   Conversations
+   ===================================================================== */
+const letter = i => 'abc'[i] || 'a';
+function chooseExchange(kind, used, voice) {
+  // With recorded voices, a character only asks the rows recorded in its own voice.
+  const hasVoice = e => !e.prompts || !voice || !!e.prompts[0].clips[voice];
+  let pool = EXCHANGES.filter(e => e.kind === kind && !used.has(e.row) && hasVoice(e));
+  if (!pool.length) pool = EXCHANGES.filter(e => e.kind === kind && hasVoice(e));
+  const weights = pool.map(e => (1 + 2 * (S.miss[e.row] || 0)) * (S.recent.includes(e.row) ? 0.25 : 1));
+  let roll = Math.random() * weights.reduce((a, b) => a + b, 0);
+  for (let i = 0; i < pool.length; i++) { roll -= weights[i]; if (roll <= 0) return pool[i]; }
+  return pool[pool.length - 1];
+}
+function makeLine(kind, used, nOptions, elder, voice) {
+  const ex = chooseExchange(kind, used, voice); used.add(ex.row);
+  const ai = Math.floor(Math.random() * ex.asks.length), ri = Math.floor(Math.random() * ex.replies.length);
+  let ask = ex.asks[ai], askClip = 'q' + ex.row + letter(ai);
+  const rec = ex.prompts && voice && ex.prompts[ai].clips[voice];
+  if (rec) { ask = rec.text; askClip = rec.file; }                   // the recording already carries any pet name
+  else if (elder && Math.random() < 0.5) {                           // "Nasılsın?" becomes "Nasılsın yavrum?"
+    const pi = Math.floor(Math.random() * PET_NAMES.length), m = ask.match(/^(.*?)([.!?]+)$/);
+    if (m) { ask = m[1] + ' ' + PET_NAMES[pi] + m[2]; askClip += '_p' + (pi + 1); }
+  }
+  const replyClip = (o, i) => o.replyClips ? o.replyClips[i] : 'r' + o.row + letter(i);
+  const options = [{ text: ex.replies[ri], clip: replyClip(ex, ri), right: true }];
+  const wrongPool = [];
+  EXCHANGES.forEach(o => { if (o.fam === ex.fam) return; o.replies.forEach((t, i) => { if (!NEVER_WRONG_CHOICE.has(t) && !ex.replies.includes(t) && !ex.asks.includes(t)) wrongPool.push({ text: t, clip: replyClip(o, i), right: false, fam: o.fam }); }); });
+  const famsUsed = new Set();
+  while (options.length < nOptions && wrongPool.length) {
+    const w = wrongPool.splice(Math.floor(Math.random() * wrongPool.length), 1)[0];
+    if (famsUsed.has(w.fam) || options.some(o => o.text === w.text)) continue;
+    famsUsed.add(w.fam); options.push(w);
+  }
+  options.sort(() => Math.random() - 0.5);
+  return { ex, ask, askClip, options, result: null };
+}
+function openTalk(npc) {
+  dropInput();
+  const used = new Set(), n = S.items.size < 2 ? 2 : 3, el = !!npc.k.elder, vo = npc.k.voice;
+  S.conv = { npc, lines: [makeLine('greet', used, n, el, vo), makeLine('mid', used, n, el, vo), makeLine('bye', used, n, el, vo)], i: 0, wrong: 0, busy: false, token: Math.random() };
+  $('talk').hidden = false; $('who').textContent = npc.k.name + ' · ' + npc.k.item.emoji + ' ' + npc.k.item.tr;
+  showLine();
+}
+function showLine() {
+  const cv = S.conv, line = cv.lines[cv.i];
+  $('result').hidden = true; $('line').hidden = false; $('again').hidden = false; $('replies').hidden = false; $('run').hidden = false;
+  $('ask').textContent = line.ask;
+  [...$('dots').children].forEach((d, i) => { const res = cv.lines[i].result; d.className = res === true ? 'ok' : res === false ? 'no' : i === cv.i ? 'now' : ''; });
+  const box = $('replies'); box.textContent = '';
+  line.options.forEach((o, i) => {
+    const row = document.createElement('div'); row.className = 'reply';
+    const hear = document.createElement('button'); hear.className = 'hear'; hear.textContent = '🔊'; hear.id = 'hear' + i; hear.setAttribute('aria-label', 'Dinle: ' + o.text);
+    hear.onclick = () => { if (!cv.busy) speak(o.text, o.clip); };
+    const say = document.createElement('button'); say.className = 'say'; say.textContent = o.text; say.id = 'say' + i;
+    say.onclick = () => answer(i);
+    row.append(hear, say); box.append(row);
+  });
+  cv.busy = false;
+  speak(line.ask, line.askClip, { pitch: 1.25 });
+}
+async function answer(i) {
+  const cv = S.conv; if (!cv || cv.busy) return;
+  cv.busy = true;
+  const token = cv.token, line = cv.lines[cv.i], o = line.options[i], btns = [...document.querySelectorAll('#replies .say')];
+  const alive = () => S.conv && S.conv.token === token;
+  btns.forEach(b => { b.disabled = true; });
+  S.recent.push(line.ex.row); if (S.recent.length > 6) S.recent.shift();
+  if (o.right) {
+    line.result = true; btns[i].classList.add('ok'); chime(true);
+    await speak(o.text, o.clip);
+  } else {
+    line.result = false; cv.wrong++; S.miss[line.ex.row] = (S.miss[line.ex.row] || 0) + 1;
+    btns[i].classList.add('no'); chime(false);
+    B.speed = Math.min(BABA_TOP, B.speed + BABA_STEP); babaSay('B10', true);
+    await speak(o.text, o.clip);
+    if (!alive()) return;
+    const ri = line.options.findIndex(x => x.right); btns[ri].classList.add('ok');
+    await speak(line.options[ri].text, line.options[ri].clip);     // let him hear the right one
+  }
+  if (!alive()) return;
+  await new Promise(r => setTimeout(r, 350));
+  if (!alive()) return;
+  cv.i++;
+  if (cv.i < 3) { showLine(); return; }
+  [...$('dots').children].forEach((d, k) => { d.className = cv.lines[k].result ? 'ok' : 'no'; });
+  $('line').hidden = true; $('again').hidden = true; $('replies').hidden = true; $('result').hidden = false;
+  if (cv.wrong === 0) {
+    const k = cv.npc.k; S.items.add(k.id); cv.npc.item.visible = false; cv.npc.done.visible = true;
+    $('resulttext').textContent = 'Aferin! ' + k.item.emoji + ' ' + k.item.tr; $('retry').hidden = true; $('run').hidden = true;
+    renderItems(); chime(true);
+    setTimeout(() => { if (alive()) { closeTalk(); if (S.items.size === KEEPERS.length) openExit(); } }, 1500);
+  } else {
+    $('resulttext').textContent = 'Olmadı. Üçü de doğru olmalı!'; $('retry').hidden = false;
+  }
+}
+function closeTalk(silent) {
+  if (!S.conv) return;
+  S.conv.npc.armed = false; S.conv = null; $('talk').hidden = true; if (!silent) stopSpeech();
+}
+
+/* =====================================================================
+   HUD, exit, win
+   ===================================================================== */
+function renderItems() {
+  const ul = $('items'); ul.textContent = '';
+  KEEPERS.forEach(k => { const li = document.createElement('li'); if (S.items.has(k.id)) li.className = 'got'; const s = document.createElement('span'); s.textContent = k.item.emoji; li.append(s, k.item.tr); ul.append(li); });
+}
+function toast(text) { const el = $('toast'); el.textContent = text; el.hidden = false; S.toastT = 2.4; }
+function openExit() {
+  S.exitOpen = true; exitSign.material.map = exitSignTex.open; exitSign.material.needsUpdate = true;
+  B.speed = BABA_TOP;
+  const b = $('banner'); b.textContent = '📢 ' + CLOSING; b.hidden = false; S.bannerT = 8;
+  speak(CLOSING, 'n_close', { pitch: 1.1, rate: 0.9 });
+  $('arrow').hidden = false;
+}
+function win() {
+  S.mode = 'win'; dropInput(); stopSpeech(); baba.visible = false;
+  $('hud').hidden = true; $('win').hidden = false; chime(true);
+  speak(BABA.B14, 'B14', { pitch: 0.7, rate: 0.9 });
+}
+function resetGame() {
+  S.items.clear(); S.exitOpen = false; S.doorK = 0; S.conv = null; S.playT = 0; S.saidB3 = false; S.carry = null; S.miss = {}; S.recent = [];
+  setDoors(0); exitSign.material.map = exitSignTex.closed; exitSign.material.needsUpdate = true;
+  npcs.forEach(n => { n.item.visible = true; n.done.visible = false; n.armed = true; });
+  P.x = DOME.x; P.z = DOME.z; P.y = 0; P.vy = 0; P.yaw = 0; P.pitch = 0;
+  B.speed = BABA_START; B.grace = 5; B.lineCd = 0; placeBaba(false);
+  ['banner', 'arrow', 'toast', 'caption', 'talk'].forEach(id => { $(id).hidden = true; });
+  $('flash').classList.remove('on'); renderItems();
+}
+function startPlay() {
+  resetGame(); S.mode = 'play'; baba.visible = true;
+  ['title', 'intro', 'win'].forEach(id => { $(id).hidden = true; });
+  $('hud').hidden = false; canvas.focus();
+  babaSay('B2', true);
+}
+function startIntro() {
+  initAudio(); S.mode = 'intro'; $('title').hidden = true; $('intro').hidden = false;
+  const box = $('story'); box.textContent = '';
+  NARRATION.forEach(t => { const p = document.createElement('p'); p.textContent = t; box.append(p); });
+  let i = 0; const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Each line appears as the narrator reads it (clips N1 to N4). Without recorded voices the lines just appear on a timer.
+  const next = async () => {
+    if (S.mode !== 'intro') return;
+    if (i >= box.children.length) { $('skip').innerHTML = 'Başla <small>· Start</small>'; return; }
+    const k = i++, t0 = performance.now(); box.children[k].classList.add('on');
+    if (clipKey('N' + (k + 1))) { await speak(NARRATION[k], 'N' + (k + 1)); if (S.mode !== 'intro') return; setTimeout(next, 350); }
+    else setTimeout(next, reduce ? 0 : Math.max(0, 2300 - (performance.now() - t0)));
+  };
+  next();
+}
+
+/* =====================================================================
+   Frame loop
+   ===================================================================== */
+function resize() { const w = window.innerWidth, h = window.innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
+let last = performance.now();
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now; S.t += dt;
+  step(dt);
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+function step(dt) {
+  if (S.mode === 'title' || S.mode === 'intro' || S.mode === 'win') {
+    // a slow glide down the empty main corridor
+    const z = 22 + (Math.sin(S.t * 0.1) * 0.5 + 0.5) * 46;
+    camera.position.set(DOME.x + Math.sin(S.t * 0.23) * 0.8, 2.3, z); camera.rotation.set(0.03, Math.PI + Math.sin(S.t * 0.17) * 0.14, 0);
+  } else if (S.mode === 'carried') {
+    updateCarry(dt);
+  } else {
+    S.playT += dt;
+    if (!S.conv) {
+      moveNoah(dt);
+      const n = npcs.find(n => !S.items.has(n.k.id) && Math.hypot(P.x - n.x, P.z - n.z) < TALK_RANGE);
+      npcs.forEach(m => { if (!m.armed && Math.hypot(P.x - m.x, P.z - m.z) > TALK_RANGE + 1.6) m.armed = true; });
+      if (n && n.armed && P.y < 0.3) openTalk(n);
+    } else {
+      const n = S.conv.npc, want = Math.atan2(-(n.x - P.x), -(n.z - P.z)); let diff = want - P.yaw;
+      while (diff > Math.PI) diff -= 2 * Math.PI; while (diff < -Math.PI) diff += 2 * Math.PI;
+      P.yaw += diff * Math.min(1, dt * 6); P.pitch += (0.12 - P.pitch) * Math.min(1, dt * 6);
+      P.vy -= 20 * dt; P.y = Math.max(0, P.y + P.vy * dt); if (P.y === 0) P.vy = 0;
+    }
+    if (S.mode === 'play') moveBaba(dt);
+    if (S.mode === 'play') {
+      const bob = P.inPit ? -0.35 + Math.sin(S.t * 5) * 0.06 : 0;
+      camera.position.set(P.x, EYE + P.y + bob, P.z); camera.rotation.set(P.pitch, P.yaw, 0);
+      if (S.exitOpen && cellChar(Math.floor(P.x / CELL), Math.floor(P.z / CELL)) === 'E') win();
+    }
+  }
+  // doors
+  const kWant = S.exitOpen ? 1 : 0; if (S.doorK !== kWant) { S.doorK = clamp(S.doorK + (kWant - S.doorK > 0 ? 1 : -1) * dt / 1.1, 0, 1); setDoors(S.doorK); }
+  // characters
+  npcs.forEach(n => {
+    const a = Math.atan2(camera.position.x - n.x, camera.position.z - n.z); n.grp.rotation.y = a;
+    const y = 3.7 + Math.sin(S.t * 2.2 + n.bob) * 0.18; n.item.position.y = y; n.done.position.y = y;
+    n.grp.position.y = S.conv && S.conv.npc === n ? Math.abs(Math.sin(S.t * 7)) * 0.12 : 0;
+  });
+  updateWalkers(dt);
+  trampolines.forEach(t => { if (t.squash) { t.squash = Math.max(0, t.squash - dt * 4); t.bed.position.y = 0.31 - t.squash * 0.2; } });
+  if (baba.visible) {
+    baba.position.set(B.x, B.moving ? Math.abs(Math.sin(B.phase)) * 0.1 : 0, B.z); baba.rotation.y = B.yaw;
+    baba.userData.shoes.forEach((s, i) => { const ph = Math.sin(B.phase + i * Math.PI); s.position.z = 0.12 + (B.moving ? ph * 0.42 : 0); s.position.y = 0.12 + (B.moving ? Math.max(0, ph) * 0.22 : 0); s.userData.leg.position.z = s.position.z * 0.5; });
+  }
+  // HUD
+  if (S.mode === 'play' || S.mode === 'carried') {
+    const d = Math.hypot(P.x - B.x, P.z - B.z), prox = clamp(1 - (d - 8) / 56, 0, 1), el = $('danger');
+    el.firstElementChild.firstElementChild.style.width = Math.round(prox * 100) + '%'; el.classList.toggle('near', d < 22);
+    if (S.captionT > 0) { S.captionT -= dt; if (S.captionT <= 0) $('caption').hidden = true; }
+    if (S.bannerT > 0) { S.bannerT -= dt; if (S.bannerT <= 0) $('banner').hidden = true; }
+    if (S.toastT > 0) { S.toastT -= dt; if (S.toastT <= 0) $('toast').hidden = true; }
+    if (S.exitOpen) {
+      const dx = EXIT.x - P.x, dz = EXIT.z - P.z, fx = -Math.sin(P.yaw), fz = -Math.cos(P.yaw), rx = Math.cos(P.yaw), rz = -Math.sin(P.yaw);
+      $('arrow').firstElementChild.style.transform = 'rotate(' + Math.atan2(dx * rx + dz * rz, dx * fx + dz * fz) + 'rad)';
+    }
+  }
+}
+
+/* =====================================================================
+   Start
+   ===================================================================== */
+buildMall(); buildWalkers(); placeBaba(false); renderItems(); bindInput(); resize();
+window.addEventListener('resize', resize);
+$('play').onclick = startIntro;
+$('skip').onclick = startPlay;
+$('replay').onclick = () => { initAudio(); startPlay(); };
+$('run').onclick = () => { closeTalk(); canvas.focus(); };
+$('retry').onclick = () => { const n = S.conv && S.conv.npc; if (n) { S.conv = null; openTalk(n); } };
+$('again').onclick = () => { const cv = S.conv; if (!cv || cv.busy) return; const line = cv.lines[cv.i]; speak('Tekrar söyler misin?', 'ui_again', { pitch: 1 }).then(() => { if (S.conv === cv && !cv.busy) speak(line.ask, line.askClip, { pitch: 1.25 }); }); };
+$('mute').onclick = () => { S.muted = !S.muted; $('mute').textContent = S.muted ? '🔇' : '🔊'; if (master) master.gain.value = S.muted ? 0 : 1; if (S.muted) stopSpeech(); };
+document.addEventListener('visibilitychange', () => { if (document.hidden) { stopSpeech(); for (const k in keys) keys[k] = false; } last = performance.now(); });
+window.__istinye = { S, P, B, npcs, walkers, step, openTalk, answer, openExit, caught, camera, sight, cellChar, CELL };   // handle for testing
+requestAnimationFrame(frame);
+})();
+</script>
